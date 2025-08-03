@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+
+<html dir="rtl" lang="ar">
+<head>
+<meta charset="utf-8"/>
+<title>رحلة الذكرى - عرض مؤثر</title>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Amiri&display=swap');
+    body {
+      margin: 0;
+      padding: 30px;
+      background: linear-gradient(to bottom, #0a0a0a, #1a1a1a);
+      color: #f2f2f2;
+      font-family: 'Amiri', serif;
+      text-align: center;
+      overflow-x: hidden;
+      position: relative;
+    }
+    h1 {
+      font-size: 2.5em;
+      margin-bottom: 30px;
+      text-shadow: 0 0 10px #ffb3b3;
+      animation: pulse 2s infinite, fadeIn 3s ease-out forwards;
+      opacity: 0;
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.02); }
+      100% { transform: scale(1); }
+    }
+    .video-container {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+      align-items: center;
+      z-index: 10;
+      position: relative;
+    }
+    .video-container div {
+      opacity: 0;
+      transform: translateY(50px);
+      animation: fadeInUp 1s forwards;
+    }
+    .video-container div:nth-child(1) { animation-delay: 0.5s; }
+    .video-container div:nth-child(2) { animation-delay: 1s; }
+    .video-container div:nth-child(3) { animation-delay: 1.5s; }
+    .video-container div:nth-child(4) { animation-delay: 2s; }
+    .video-container div:nth-child(5) { animation-delay: 2.5s; }
+    .video-container div:nth-child(6) { animation-delay: 3s; }
+    .video-container div:nth-child(7) { animation-delay: 3.5s; }
+    .video-container div:nth-child(8) { animation-delay: 4s; }
+    .video-container div:nth-child(9) { animation-delay: 4.5s; }
+    .video-container div:nth-child(10) { animation-delay: 5s; }
+    .video-container div:nth-child(11) { animation-delay: 5.5s; }
+    .video-container div:nth-child(12) { animation-delay: 6s; }.   
+    .video-container div:nth-child(13) {      animation-delay: 6.5s; }
+    .video-container div:nth-child(14) {      animation-delay: 7s; }
+    .video-container div:nth-child(15) {      animation-delay: 7.5s; }
+    .video-container div:nth-child(16) {      animation-delay: 8s; }
+    .video-container div:nth-child(17) {      animation-delay: 8.5s; }
+    .video-container div:nth-child(18) {      animation-delay: 9s; }
+    .video-container div:nth-child(19) {      animation-delay: 9.5s; }
+    .video-container div:nth-child(20) {      animation-delay: 10s; }
+    @keyframes fadeInUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    video {
+      width: 90%;
+      max-width: 800px;
+      border-radius: 12px;
+      box-shadow: 0 0 25px rgba(255, 255, 255, 0.08);
+    }
+
+    .footer, .signature {
+      margin-top: 40px;
+      font-size: 14px;
+      color: #aaa;
+      z-index: 10;
+      position: relative;
+    }
+    .signature {
+      margin-top: 10px;
+      font-size: 13px;
+      color: #777;
+    }
+
+    .heart {
+      position: fixed;
+      width: 15px;
+      height: 15px;
+      background: red;
+      transform: rotate(45deg);
+      animation: float 7s infinite;
+      z-index: 1;
+    }
+    .heart::before,
+    .heart::after {
+      content: "";
+      position: absolute;
+      width: 15px;
+      height: 15px;
+      background: red;
+      border-radius: 50%;
+    }
+    .heart::before { top: -7.5px; left: 0; }
+    .heart::after { left: -7.5px; top: 0; }
+
+    @keyframes float {
+      0% { transform: translateY(0) rotate(45deg); opacity: 1; }
+      100% { transform: translateY(-100vh) rotate(45deg); opacity: 0; }
+    }
+
+    .rain {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      background: repeating-linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.04),
+        rgba(255, 255, 255, 0.04) 2px,
+        transparent 2px,
+        transparent 4px
+      );
+      animation: rain 0.4s linear infinite;
+      z-index: 0;
+    }
+    @keyframes rain {
+      0% { background-position: 0 0; }
+      100% { background-position: 0 4px; }
+    }
+
+    .back-button {
+      margin-top: 50px;
+      display: inline-block;
+      background-color: #ffcccc22;
+      border: 1px solid #ff9999;
+      padding: 10px 25px;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 8px;
+      transition: 0.3s ease;
+    }
+    .back-button:hover {
+      background-color: #ff999944;
+    }
+  
+
+.closing-scene {
+  margin-top: 100px;
+  padding: 40px;
+  background: rgba(255,255,255,0.03);
+  border-top: 1px solid #444;
+  text-align: center;
+  font-size: 18px;
+  color: #ffdddd;
+  animation: fadein 5s ease-in;
+}
+.fade-text {
+  opacity: 0;
+  animation: fadein 3s ease-in forwards;
+}
+.fade-text:nth-child(2) {
+  animation-delay: 2s;
+}
+.fade-text:nth-child(3) {
+  animation-delay: 4s;
+}
+@keyframes fadein {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+</style>
+</head>
+<body>
+<audio autoplay="" loop="">
+<source src="https://files.catbox.moe/hmqvtp.mp3" type="audio/mpeg"/>
+</audio>
+<div class="rain"></div>
+<div class="heart" style="left: 20%; animation-delay: 0s;"></div>
+<div class="heart" style="left: 40%; animation-delay: 2s;"></div>
+<div class="heart" style="left: 60%; animation-delay: 4s;"></div>
+<div class="heart" style="left: 80%; animation-delay: 1s;"></div>
+<h1>💔 كل لحظات الذاكرة تحت المطر</h1>
+<div class="video-container">
+<div><p>🎞️ فيديو 1</p><video controls=""><source src="2023-05-24_D9DDC076-15CF-4DD5-92D4-8F6D77216814-main.mp4" type="video/mp4"/></video></div>
+<div><p>🎞️ فيديو 2</p><video controls=""><source src="2023-03-25_02238C8C-7FB2-4A4F-BBDA-9B59CED2D673-main.mp4" type="video/mp4"/></video></div>
+<div><p>🎞️ فيديو 3</p><video controls=""><source src="2023-12-03_CA96056E-8CD8-4D87-BCBA-A0EC22D79367-main.mp4" type="video/mp4"/></video></div>
+<div><p>🎞️ فيديو 4</p><video controls=""><source src="2023-10-27_E5BD4CCE-A600-4100-B30D-52A29588D780-main.mp4" type="video/mp4"/></video></div>
+<div><p>🎞️ فيديو 5</p><video controls=""><source src="2024-01-06_C0E0FCD5-59DF-4336-8833-4F6C8632DE56-main.mp4" type="video/mp4"/></video></div>
+<div><p>🎞️ فيديو 6</p><video controls=""><source src="2024-08-21_91EC9F9B-1E56-48B1-8E00-2442E24DE9F6-main.mp4" type="video/mp4"/></video></div>
+<div><p>🎞️ فيديو 7</p><video controls=""><source src="2025-04-03_7E3F89BB-2F5B-4399-986A-EC638110745F-main.mp4" type="video/mp4"/></video></div>
+<div><p>🎞️ فيديو 8</p><video controls=""><source src="3F01CDA5-9D11-4059-8E92-599FDC44951A.mp4" type="video/mp4"/></video></div>
+<div><p>🎞️ فيديو 9</p><video controls=""><source src="2023-03-25_02238C8C-7FB2-4A4F-BBDA-9B59CED2D673-main.mp4" type="video/mp4"/></video></div>
+<div><p>🎞️ فيديو 10</p><video controls=""><source src="61F7DBBD-A96F-4611-8677-BA45C4105E2F.mp4" type="video/mp4"/></video></div>
+<div><p>🎞️ فيديو 11</p><video controls=""><source src="991F6113-6B93-4A92-8DD1-E75BCAB218C2.mp4" type="video/mp4"/></video></div>
+<div><p>🎞️ فيديو 12</p><video controls=""><source src="A56A9B64-B065-4B56-9E73-6CBEA68EB36E.mp4" type="video/mp4"/></video></div><div><p>🎞️ فيديو 14</p><video controls=""><source src="c562049c-bacc-4ce0-ade5-229e202869bc.mp4" type="video/mp4"/></video></div><div><p>🎞️ فيديو 15</p><video controls=""><source src="IMG_1020.mp4" type="video/mp4"/></video></div><div><p>🎞️ فيديو 16</p><video controls=""><source src="IMG_3922.mp4" type="video/mp4"/></video></div><div><p>🎞️ فيديو 17</p><video controls=""><source src="IMG_6243.mp4" type="video/mp4"/></video></div><div><p>🎞️ فيديو 18</p><video controls=""><source src="Snapchat-2058943574.mp4" type="video/mp4"/></video></div><div><p>🎞️ 19فيديو </p><video controls=""><source src="A56A9B64-B065-4B56-9E73-6CBEA68EB36E.mp4" type="video/mp4"/></video></div><div><p>🎞️ فيديو 20</p><video controls=""><source src="94EDC6D6-CBEB-4D3C-BD1F-3F1289E7C7BF.mp4" type="video/mp4"/></video></div>
+</div>
+<a class="back-button" href="index.html">← عُد إلى صفحة البداية</a>
+<div class="footer">هذه ليست صفحة… إنها نبض الذكرى في قلب مكسور 💔</div>
+<div class="signature">إعداد: ستار 💔 — تمّت في تموز 2025</div>
+<div class="closing-scene">
+<p class="fade-text">💔 في نهاية الذاكرة…</p>
+<p class="fade-text">رحلتكِ ما كانت ذكرى… كانت وطن، وأنا أصبحت لاجئاً بعدك</p>
+<p class="fade-text signature">ستار - آخر نبضة حنين، تموز 2025</p>
+</div>
+
+<div style="text-align:center; margin-top: 40px;">
+<button onclick="window.location.href='../index.html'" class="back-button">
+  🔙 عودة إلى الصفحة الرئيسية
+</button>
+</div>
+</body>
+</html>
