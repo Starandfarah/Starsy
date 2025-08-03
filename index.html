@@ -4,27 +4,29 @@
   <meta charset="UTF-8">
   <title>إلى فرح...</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Amiri&display=swap');
     body {
       background: linear-gradient(135deg, #020446, #330066);
       color: #fff;
       font-family: 'Tahoma', sans-serif;
-      padding: 10px;
+      padding: 20px;
       margin: 0;
       min-height: 100vh;
       display: flex;
-      flex-direction: center;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
+      text-align: center;
     }
+
     h1 {
-      font-size: 1.3em;
-      line-height: 2.6;
-      max-width: 1000px;
+      font-size: 1.5em;
+      line-height: 2;
+      max-width: 800px;
       animation: fadeIn 4s ease-out forwards;
       opacity: 0;
       text-shadow: 0 0 10px #fff2;
     }
+
     button {
       margin-top: 30px;
       padding: 10px 25px;
@@ -36,69 +38,36 @@
       cursor: pointer;
       box-shadow: 0 0 10px #ff9999;
     }
+
     .signature {
-      position: absolute;
-      bottom: 10px;
+      margin-top: 40px;
       font-size: 14px;
-      color: #999;
-      width: 100%;
-      text-align: left;
+      color: #aaa;
     }
-    @keyframes float {
-      0% { transform: translateY(0) rotate(45deg); opacity: 1; }
-      100% { transform: translateY(-100vh) rotate(45deg); opacity: 0; }
-    }
-    .rain {
-      position: fixed;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      background: repeating-linear-gradient(
-        to bottom,
-        rgba(255, 255, 255, 0.05),
-        rgba(255, 255, 255, 0.05) 2px,
-        transparent 2px,
-        transparent 4px
-      );
-      animation: rain 0.4s linear infinite;
-      z-index: 0;
-    }
-    @keyframes rain {
-      0% { background-position: 0 0; }
-      100% { background-position: 0 4px; }
-    }
+
     @keyframes fadeIn {
-      from { opacity: 10; transform: translateY(40px); }
+      from { opacity: 0; transform: translateY(40px); }
       to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
 <body>
-  <div class="rain"></div>
-  <div class="heart" style="left: 20%; animation-delay: 0s;"></div>
-  <div class="heart" style="left: 40%; animation-delay: 2s;"></div>
-  <div class="heart" style="left: 60%; animation-delay: 4s;"></div>
-  <div class="heart" style="left: 80%; animation-delay: 5s;"></div>
-  <div>
-    <h1>
-      لم أكتب لكِ لتعودي…<br>
-      بل كتبتُ لأتذكّر أنني كنت حيًّا حين أحببتكِ.<br><br>
-      بيني وبينكِ مسافة قلبٍ لم يُشفَ،<br>
-      وذاكرة لا تموت، مهما ماتت الأيام.<br><br>
-      أنتِ لستِ مجرّد ذكرى…<br>
-      أنتِ معركتي، وسلامي، وضياعي الجميل.<br><br>
-      حين خسرتكِ، لم أخسر امرأة…<br>
-      بل خسرت نفسي، وأمان روحي.<br><br>
-      وها أنا ذا… أقف وحيدًا أمام هذا العالم،<br>
-      وفي صدري مدينة تهدمت، وما زلت أعيش بين أنقاضها
-    </h1>
- 
-   <button onclick="location.href='home.html'">ادخل الذكرى</button>
+  <h1>
+    لم أكتب لكِ لتعودي…<br>
+    بل كتبتُ لأتذكّر أنني كنت حيًّا حين أحببتكِ.<br><br>
+    بيني وبينكِ مسافة قلبٍ لم يُشفَ،<br>
+    وذاكرة لا تموت، مهما ماتت الأيام.<br><br>
+    أنتِ لستِ مجرّد ذكرى…<br>
+    أنتِ معركتي، وسلامي، وضياعي الجميل.<br><br>
+    حين خسرتكِ، لم أخسر امرأة…<br>
+    بل خسرت نفسي، وأمان روحي.<br><br>
+    وها أنا ذا… أقف وحيدًا أمام هذا العالم،<br>
+    وفي صدري مدينة تهدمت، وما زلت أعيش بين أنقاضها.
+  </h1>
 
-  </div>
-  
+  <button onclick="location.href='index.html'">ادخل الذكرى</button>
 
-  <div class="signature">إعداد: ستار💔❤️‍🔥 — تمّت في تموز 2025</div>
+  <div class="signature">إعداد: ستار 💔❤️‍🔥 — تمّت في تموز 2025</div>
 
   <div style="text-align: center; margin-top: 30px;">
     <h3>📲 امسح الباركود لتفتح الذكرى من أي جهاز</h3>
