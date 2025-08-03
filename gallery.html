@@ -6,8 +6,25 @@
 <body>
   
   <div id="rain"></div>
-  <audio id="bgmusic" src="https://files.catbox.moe/20af29.mp3" autoplay loop></audio>
+     <audio id="bg-audio" autoplay loop playsinline>
+    <source src="https://files.catbox.moe/20af29.mp3" type="audio/mpeg">
+</audio>
 
+<script>
+    // التشغيل التلقائي عند التفاعل الأول
+    window.addEventListener('click', playAudio);
+    window.addEventListener('touchstart', playAudio);
+    
+    function playAudio() {
+        const audio = document.getElementById('bg-audio');
+        if (audio && audio.paused) {
+            audio.play().catch(e => console.warn("Autoplay failed:", e));
+        }
+        // نزيل المستمعين بعد أول تفاعل
+        window.removeEventListener('click', playAudio);
+        window.removeEventListener('touchstart', playAudio);
+    }
+</script>
   <div class="intro">
     <h1>إلى فرح…</h1>
     <p>لو تعلمين كم حاولت أكون بخير بعدك… وما قدرت.</p>
