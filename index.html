@@ -2,7 +2,16 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <title>إلى فرح...</title>
+  <title>صفحة الذكرى المحمية</title>
+  <script>
+    var correctPassword = "farah2025";
+    var password = prompt("🚫 هذه الصفحة محمية، أدخل الرمز السري:");
+
+    if (password !== correctPassword) {
+      alert("❌ الرمز السري غير صحيح!");
+      window.location.href = "https://google.com";
+    }
+  </script>
   <style>
     body {
       background: linear-gradient(135deg, #020446, #330066);
@@ -67,11 +76,11 @@
 
   <button onclick="location.href='home.html'">ادخل الذكرى</button>
 
-  <div class="signature">إعداد: ستار 💔❤️‍🔥 — تمّت في تموز 2025</div>
+  <div class="signature">إعداد: ستار 💔 — تمّت في تموز 2025</div>
 
   <div style="text-align: center; margin-top: 30px;">
     <h3>📲 امسح الباركود لتفتح الذكرى من أي جهاز</h3>
-    <img src="https://api.qrserver.com/v1/create-qr-code/?data=https://starandfarah.com&size=300x300&format=svg" alt="QR Code" width="200">
+    <img src="https://api.qrserver.com/v1/create-qr-code/?data=https://starandfarah.github.io/Starsy&size=300x300&format=svg" alt="QR Code" width="200">
   </div>
 </body>
 </html>
