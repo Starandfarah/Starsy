@@ -1,45 +1,63 @@
-<!DOCTYPE html>
+
+ <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <title>صفحة الذكرى المحمية</title>
-  <script>
-    var correctPassword = "farah2022";
-    var password = prompt("🚫 رمز دخول جروحي :");
-
-    if (password !== correctPassword) {
-      alert("❌ الرمز السري غير صحيح!");
-      window.location.href = "https://google.com";
-    }
-  </script>
+  <title>إلى فرح...</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Amiri&display=swap');
     body {
-      background: linear-gradient(135deg, #020446, #330066);
+      background: url('010.jpg') no-repeat center center fixed;
+      background-size: cover;
       color: #fff;
       font-family: 'Tahoma', sans-serif;
-      padding: 20px;
       margin: 0;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
+      padding: 0;
+      overflow: hidden;
+      animation: fadeIn 10s ease-in;
+      position: relative;
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 0;
+    }
+
+    .content {
+      position: relative;
+      z-index: 10;
+      padding: 150px 30px 60px;
       text-align: center;
     }
 
     h1 {
-      font-size: 1.5em;
-      line-height: 2;
-      max-width: 800px;
-      animation: fadeIn 4s ease-out forwards;
-      opacity: 0;
-      text-shadow: 0 0 10px #fff2;
+      font-size: 1.6em;
+      line-height: 2.6;
+      max-width: 1000px;
+      margin: auto;
+      text-shadow: 0 0 15px #000;
+    }
+
+    .login-box {
+      margin-top: 30px;
+    }
+
+    input {
+      margin: 5px;
+      padding: 10px;
+      width: 200px;
+      border-radius: 5px;
+      border: none;
+      font-size: 20px;
     }
 
     button {
-      margin-top: 30px;
+      margin-top: 10px;
       padding: 10px 25px;
-      font-size: 18px;
+      font-size: 20px;
       background: #ffcccc;
       color: #000;
       border: none;
@@ -49,18 +67,56 @@
     }
 
     .signature {
-      margin-top: 40px;
-      font-size: 14px;
-      color: #aaa;
+      font-size: 16px;
+      color: #999;
+      margin-top: 60px;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(40px); }
-      to { opacity: 1; transform: translateY(0); }
+    .falling {
+      position: fixed;
+      top: -200px;
+      width: 90px;
+      height: auto;
+      z-index: 1;
+      border-radius: 10px;
+      animation-name: fall;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(-200px) rotate(0deg); opacity: 0; }
+      100% { transform: translateY(110vh) rotate(360deg); opacity: 1; }
+    }
+
+    .qr-section {
+      margin-top: 40px;
+      position: relative;
+      z-index: 10;
+      animation: fallQR 8s ease-in-out infinite;
+    }
+
+    @keyframes fallQR {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(30px); }
+      100% { transform: translateY(0); }
+    }
+
+    .fade-out {
+      animation: fadeOut 1.5s ease-in forwards;
+    }
+
+    @keyframes fadeOut {
+      from { opacity: 1; }
+      to { opacity: 0; }
     }
   </style>
 </head>
 <body>
+
+<div class="overlay"></div>
+
+<div class="content">
   <h1>
     لم أكتب لكِ لتعودي…<br>
     بل كتبتُ لأتذكّر أنني كنت حيًّا حين أحببتكِ.<br><br>
@@ -71,16 +127,53 @@
     حين خسرتكِ، لم أخسر امرأة…<br>
     بل خسرت نفسي، وأمان روحي.<br><br>
     وها أنا ذا… أقف وحيدًا أمام هذا العالم،<br>
-    وفي صدري مدينة تهدمت، وما زلت أعيش بين أنقاضها.
+    وفي صدري مدينة تهدمت، وما زلت أعيش بين أنقاضها
   </h1>
 
-  <button onclick="location.href='home.html'">ادخل الذكرى</button>
+  <div class="login-box">
+    <input type="text" id="username" placeholder="اسم المستخدم">
+    <input type="password" id="password" placeholder="الرمز السري">
+    <br>
+    <button onclick="login()">دخول الذكرى</button>
+    <p id="error" style="color: pink; margin-top: 10px;"></p>
+  </div>
+
+  <div class="qr-section">
+    <h3>📲 امسح الباركود لتفتح الذكرى من أي جهاز</h3>
+    <img src="https://api.qrserver.com/v1/create-qr-code/?data=https://starandfarah.com&size=300x300&format=svg" alt="QR Code" width="180">
+  </div>
 
   <div class="signature">إعداد: ستار 💔 — تمّت في تموز 2025</div>
+</div>
 
-  <div style="text-align: center; margin-top: 30px;">
-    <h3>📲 امسح الباركود لتفتح الذكرى من أي جهاز</h3>
-    <img src="https://api.qrserver.com/v1/create-qr-code/?data=https://starandfarah.github.io/Starsy&size=300x300&format=svg" alt="QR Code" width="200">
-  </div>
+<script>
+  function login() {
+    var user = document.getElementById("username").value.trim();
+    var pass = document.getElementById("password").value.trim();
+    if (user === "farah" && pass === "2022") {
+      document.body.classList.add("fade-out");
+      setTimeout(function() {
+        window.location.href = "home.html";
+      }, 1500);
+    } else {
+      document.getElementById("error").textContent = "❌ البيانات غير صحيحة";
+    }
+  }
+
+  // صور مكسورة أو نصفية متساقطة من الخلف
+  for (let i = 1; i <= 30; i++) {
+    const img = document.createElement("img");
+    const num = i.toString().padStart(3, '0');
+    img.src = `gallery/${num}.jpg`;
+    img.className = "falling";
+    img.style.left = Math.random() * 100 + "vw";
+    img.style.animationDuration = (8 + Math.random() * 6) + "s";
+    img.style.opacity = Math.random() * 0.6 + 0.3;
+    img.style.filter = "grayscale(100%) blur(1.5px) contrast(0.8)";
+    img.style.transform = `rotate(${Math.random() * 60 - 30}deg) scale(${Math.random() * 0.4 + 0.6})`;
+    document.body.appendChild(img);
+  }
+</script>
+
 </body>
 </html>
