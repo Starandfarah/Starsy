@@ -1,5 +1,4 @@
-
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
@@ -8,20 +7,16 @@
     @import url('https://fonts.googleapis.com/css2?family=Amiri&display=swap');
     body {
       background: url('010.jpg') no-repeat center center fixed;
-      body {
-  background: linear-gradient(to bottom,
-    rgba(0, 0, 0, 0.95),
-    rgba(25, 0, 51, 0.85),
-    rgba(0, 0, 0, 1));
-  color: #fff;
-  font-family: 'Amiri', serif;
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden;
+      background-size: cover;
+      color: #fff;
+      font-family: 'Tahoma', sans-serif;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
   overflow-y: auto;   /* ✅ يسمح بالنزول */
-  min-height: 100vh;  /* ✅ تأكد إن طول الصفحة يتوسع */
-  position: relative;
-
+  min-height: 100vh;
+      animation: fadeIn 10s ease-in;
+      position: relative;
     }
 
     .overlay {
@@ -145,7 +140,7 @@
   </div>
 
   <div class="qr-section">
-    <h3>📲 امسح الباركود لتفتح الذكرى من أي جهاز</h3>
+    <h3>باركود لذكرى ابدي</h3>
     <img src="https://api.qrserver.com/v1/create-qr-code/?data=https://starandfarah.github.io/Starsy/&size=300x300&format=svg" alt="QR Code" width="180">
   </div>
 
@@ -183,3 +178,4 @@
 
 </body>
 </html>
+
