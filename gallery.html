@@ -2,97 +2,39 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
-
-  
-  <div id="rain"></div>
-     <audio id="bg-audio" autoplay loop playsinline>
-    <source src="https://files.catbox.moe/20af29.mp3" type="audio/mpeg">
-</audio>
-
-<script>
-    // التشغيل التلقائي عند التفاعل الأول
-    window.addEventListener('click', playAudio);
-    window.addEventListener('touchstart', playAudio);
-    
-    function playAudio() {
-        const audio = document.getElementById('bg-audio');
-        if (audio && audio.paused) {
-            audio.play().catch(e => console.warn("Autoplay failed:", e));
-        }
-        // نزيل المستمعين بعد أول تفاعل
-        window.removeEventListener('click', playAudio);
-        window.removeEventListener('touchstart', playAudio);
-    }
-</script>
+  <title>معرض الذكريات - إلى فرح…</title>
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Amiri&display=swap');
-
-  body {
-      background: linear-gradient(to bottom,
-        rgba(0, 0, 0, 0.95),
-        rgba(25, 0, 51, 0.85),
-        rgba(0, 0, 0, 1));
+    body {
+      background: linear-gradient(to bottom, rgba(0, 0, 0, 0.95), rgba(25, 0, 51, 0.85), rgba(0, 0, 0, 1));
       color: #fff;
-      font-family: 'Amiri', serif;
+      font-family: 'Tahoma', sans-serif;
       margin: 0;
       padding: 0;
       overflow-x: hidden;
-      height: 100vh;
       position: relative;
-      animation: fadeIn 4s ease-in-out;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    .stars::before, .stars::after {
-      content: '';
-      position: absolute;
-      width: 2px;
-      height: 2px;
-      background: white;
-      border-radius: 50%;
-      animation: drift 20s linear infinite;
-      opacity: 0.3;
-    }
-
-    .stars::before {
-      top: 20%;
-      left: 15%;
-      box-shadow: 0 0 white, 100px 200px white, 300px 400px white, 600px 300px white;
-    }
-
-    .stars::after {
-      top: 50%;
-      left: 70%;
-      box-shadow: 50px 80px white, 200px 100px white, 400px 300px white, 700px 250px white;
-    }
-
-    @keyframes drift {
-      0% { transform: translateY(0); }
-      100% { transform: translateY(-100px); }
+    audio {
+      display: none;
     }
 
     .intro {
       text-align: center;
-      padding-top: 80px;
+      padding: 40px 20px;
     }
 
     .intro h1 {
-      font-size: 32px;
+      font-size: 2.5em;
       margin-bottom: 10px;
     }
 
     .intro p {
-      font-size: 18px;
-      margin: 0;
-      opacity: 0.8;
+      font-size: 1.2em;
+      color: #ddd;
     }
 
     .whatsapp-bubble {
-      max-width: 70%;
+      max-width: 60%;
       background: rgba(255, 255, 255, 0.08);
       backdrop-filter: blur(6px);
       margin: 20px auto;
@@ -101,48 +43,9 @@
       font-size: 18px;
       line-height: 1.8;
       position: relative;
-      box-shadow: 0 0 10px rgba(255,255,255,0.1);
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
     }
 
-    .moving-bubble {
-      position: fixed;
-      bottom: 30px;
-      right: -100%;
-      white-space: nowrap;
-      font-size: 20px;
-      padding: 12px 24px;
-      border-radius: 30px;
-      background: rgba(255, 255, 255, 0.1);
-      color: #fff;
-      backdrop-filter: blur(3px);
-      box-shadow: 0 0 10px rgba(255,255,255,0.2);
-      animation: move-bubble 20s linear infinite;
-      z-index: 20;
-    }
-
-    @keyframes move-bubble {
-      0% { right: -100%; }
-      100% { right: 110%; }
-    }
-
-    .back-button {
-      display: block;
-      margin: 60px auto 10px;
-      text-align: center;
-      font-size: 20px;
-      color: #ffffffcc;
-      background: rgba(255,255,255,0.05);
-      padding: 12px 24px;
-      border-radius: 8px;
-      text-decoration: none;
-      transition: all 0.3s ease;
-      box-shadow: 0 0 10px rgba(255,255,255,0.2);
-      width: fit-content;
-    }
-
-    .back-button:hover {
-      background: rgba(255,255,255,0.15);
-    }
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
@@ -155,7 +58,7 @@
     .grid img {
       width: 100%;
       border-radius: 10px;
-      box-shadow: 0 0 10px #00000050;
+      cursor: pointer;
       transition: transform 0.3s ease;
     }
 
@@ -163,240 +66,122 @@
       transform: scale(1.05);
     }
 
+    .lightbox {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      background: rgba(0,0,0,0.9);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+
+    .lightbox img {
+      max-width: 75%;
+      max-height: 75%;
+      border-radius: 12px;
+      box-shadow: 0 0 30px #000;
+      transition: all 0.5s ease;
+    }
+
+    .lightbox .close-btn, .lightbox .prev, .lightbox .next {
+      position: absolute;
+      top: 20px;
+      color: white;
+      font-size: 28px;
+      background: rgba(255,255,255,0.1);
+      padding: 10px;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    .lightbox .close-btn { right: 20px; }
+    .lightbox .prev { left: 20px; top: 50%; transform: translateY(-50%); }
+    .lightbox .next { right: 20px; top: 50%; transform: translateY(-50%); }
+
     .final-scene {
       text-align: center;
-      margin-top: 100px;
       padding: 80px 20px;
       background: linear-gradient(to bottom, rgba(0,0,0,0.8), #1a002a);
-      border-top: 1px solid #444;
-      position: relative;
-      overflow: hidden;
     }
 
-    .final-scene .sunset {
-      position: absolute;
-      top: -100px;
-      left: 0;
-      width: 100%;
-      height: 300px;
-      background: radial-gradient(circle at center, #ffccaa 0%, #110022 80%);
-      opacity: 0.2;
-      animation: fadeSunset 6s ease-in-out forwards;
-    }
-
-    @keyframes fadeSunset {
-      from { opacity: 0; transform: scale(1.5); }
-      to { opacity: 0.2; transform: scale(1); }
-    }
-
-    .closing-quote p {
-      font-size: 1.6em;
-      color: #eee;
+    .final-scene p {
+      font-size: 1.5em;
       margin: 10px 0;
-      animation: fadeText 3s ease-in-out;
     }
 
-    .closing-quote .signature {
-      font-size: 1.2em;
-      color: #999;
-      margin-top: 20px;
-    }
-
-    @keyframes fadeText {
-      0% { opacity: 0; transform: translateY(20px); }
-      100% { opacity: 1; transform: translateY(0); }
+    .signature {
+      font-size: 1em;
+      color: #aaa;
     }
 
     .back-button {
-      margin-top: 40px;
+      display: block;
+      margin: 40px auto 20px;
       padding: 12px 24px;
       background: #ffffff10;
       color: #fff;
       border: 1px solid #888;
       border-radius: 8px;
-      cursor: pointer;
-      font-size: 1em;
-      transition: background 0.3s ease;
+      text-align: center;
+      text-decoration: none;
+      transition: 0.3s ease;
+      width: fit-content;
     }
 
     .back-button:hover {
-      background: #ffffff20;
-    }
-    .signature {
-      text-align: center;
-      font-size: 14px;
-      opacity: 0.5;
-      margin-top: 10px;
+      background: #ffffff30;
     }
 
+    .farah-name {
+      position: absolute;
+      font-size: 80px;
+      top: 40%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: rgba(255,255,255,0.05);
+      animation: twinkle 6s infinite;
+      font-family: 'Amiri', serif;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.2; }
+      50% { opacity: 1; }
+    }
   </style>
 </head>
 <body>
- 
-  <!-- خلفية النجوم -->
-  <div class="stars"></div>
 
-  <!-- المحتوى -->
-  <div class="content">
-    <h1>إلى فرح…</h1>
-    <div class="whatsapp-bubble">كنت أهرب من كل شي… بس مو منك</div>
-    <div class="whatsapp-bubble">حتى سكوتي كان يبكيك، بس أنتِ ما سمعتي</div>
-    <div class="whatsapp-bubble">فرح، ضيّعتِ فرحك وفرحي… وأنا ضيّعت نفسي بعدك</div>
+<!-- الصوت الأساسي -->
+<audio id="bgmusic" loop>
+  <source src="https://files.catbox.moe/h8tdkz.mp3" type="audio/mpeg">
+</audio>
 
-  <audio id="bgmusic" src="https://files.catbox.moe/20af29.mp3" loop></audio>
-  
-  <div class="grid">
-    <img src="gallery/001.jpg" alt="ذكريات 1">
-    <img src="gallery/002.jpg" alt="ذكريات 2">
-    <img src="gallery/003.jpg" alt="ذكريات 3">
-    <img src="gallery/004.jpg" alt="ذكريات 4">
-    <img src="gallery/005.jpg" alt="ذكريات 5">
-    <img src="gallery/006.jpg" alt="ذكريات 6">
-    <img src="gallery/007.jpg" alt="ذكريات 7">
-    <img src="gallery/008.jpg" alt="ذكريات 8">
-    <img src="gallery/009.jpg" alt="ذكريات 9">
-    <img src="gallery/010.jpg" alt="ذكريات 10">
-    <img src="gallery/011.jpg" alt="ذكريات 11">
-    <img src="gallery/012.jpg" alt="ذكريات 12">
-    <img src="gallery/013.jpg" alt="ذكريات 13">
-    <img src="gallery/014.jpg" alt="ذكريات 14">
-    <img src="gallery/015.jpg" alt="ذكريات 15">
-    <img src="gallery/016.jpg" alt="ذكريات 16">
-    <img src="gallery/017.jpg" alt="ذكريات 17">
-    <img src="gallery/018.jpg" alt="ذكريات 18">
-    <img src="gallery/019.jpg" alt="ذكريات 19">
-    <img src="gallery/020.jpg" alt="ذكريات 20">
-    <img src="gallery/021.jpg" alt="ذكريات 21">
-    <img src="gallery/022.jpg" alt="ذكريات 22">
-    <img src="gallery/023.jpg" alt="ذكريات 23">
-    <img src="gallery/024.jpg" alt="ذكريات 24">
-    <img src="gallery/025.jpg" alt="ذكريات 25">
-    <img src="gallery/026.jpg" alt="ذكريات 26">
-    <img src="gallery/027.jpg" alt="ذكريات 27">
-    <img src="gallery/028.jpg" alt="ذكريات 28">
-    <img src="gallery/029.jpg" alt="ذكريات 29">
-    <img src="gallery/030.jpg" alt="ذكريات 30">
-    <img src="gallery/031.jpg" alt="ذكريات 31">
-    <img src="gallery/032.jpg" alt="ذكريات 32">
-    <img src="gallery/033.jpg" alt="ذكريات 33">
-    <img src="gallery/034.jpg" alt="ذكريات 34">
-    <img src="gallery/035.jpg" alt="ذكريات 35">
-    <img src="gallery/036.jpg" alt="ذكريات 36">
-    <img src="gallery/037.jpg" alt="ذكريات 37">
-    <img src="gallery/038.jpg" alt="ذكريات 38">
-    <img src="gallery/039.jpg" alt="ذكريات 39">
-    <img src="gallery/040.jpg" alt="ذكريات 40">
-    <img src="gallery/041.jpg" alt="ذكريات 41">
-    <img src="gallery/042.jpg" alt="ذكريات 42">
-    <img src="gallery/043.jpg" alt="ذكريات 43">
-    <img src="gallery/044.jpg" alt="ذكريات 44">
-    <img src="gallery/045.jpg" alt="ذكريات 45">
-    <img src="gallery/046.jpg" alt="ذكريات 46">
-    <img src="gallery/047.jpg" alt="ذكريات 47">
-    <img src="gallery/048.jpg" alt="ذكريات 48">
-    <img src="gallery/049.jpg" alt="ذكريات 49">
-    <img src="gallery/050.jpg" alt="ذكريات 50">
-    <img src="gallery/051.jpg" alt="ذكريات 51">
-    <img src="gallery/052.jpg" alt="ذكريات 52">
-    <img src="gallery/053.jpg" alt="ذكريات 53">
-    <img src="gallery/054.jpg" alt="ذكريات 54">
-    <img src="gallery/055.jpg" alt="ذكريات 55">
-    <img src="gallery/056.jpg" alt="ذكريات 56">
-    <img src="gallery/057.jpg" alt="ذكريات 57">
-    <img src="gallery/058.jpg" alt="ذكريات 58">
-    <img src="gallery/059.jpg" alt="ذكريات 59">
-    <img src="gallery/060.jpg" alt="ذكريات 60">
-    <img src="gallery/061.jpg" alt="ذكريات 61">
-    <img src="gallery/062.jpg" alt="ذكريات 62">
-    <img src="gallery/063.png" alt="ذكريات 63">
-    <img src="gallery/064.png" alt="ذكريات 64">
-    <img src="gallery/065.png" alt="ذكريات 65">
-    <img src="gallery/066.png" alt="ذكريات 66">
-    <img src="gallery/067.jpg" alt="ذكريات 67">
-    <img src="gallery/068.png" alt="ذكريات 68">
-    <img src="gallery/069.png" alt="ذكريات 69">
-    <img src="gallery/070.jpg" alt="ذكريات 70">
-    <img src="gallery/071.png" alt="ذكريات 71">
-    <img src="gallery/072.png" alt="ذكريات 72">
-    <img src="gallery/073.jpg" alt="ذكريات 73">
-    <img src="gallery/074.jpg" alt="ذكريات 74">
-    <img src="gallery/075.jpg" alt="ذكريات 75">
-    <img src="gallery/076.jpg" alt="ذكريات 76">
-    <img src="gallery/077.png" alt="ذكريات 77">
-    <img src="gallery/078.jpg" alt="ذكريات 78">
-    <img src="gallery/079.png" alt="ذكريات 79">
-    <img src="gallery/080.jpg" alt="ذكريات 80">
-    <img src="gallery/081.png" alt="ذكريات 81">
-    <img src="gallery/082.png" alt="ذكريات 82">
-    <img src="gallery/083.png" alt="ذكريات 83">
-    <img src="gallery/084.png" alt="ذكريات 84">
-    <img src="gallery/085.png" alt="ذكريات 85">
-    <img src="gallery/086.jpg" alt="ذكريات 86">
-    <img src="gallery/087.jpg" alt="ذكريات 87">
-    <img src="gallery/088.jpg" alt="ذكريات 88">
-    <img src="gallery/089.jpg" alt="ذكريات 89">
-    <img src="gallery/090.jpg" alt="ذكريات 90">
-    <img src="gallery/091.jpg" alt="ذكريات 91">
-    <img src="gallery/092.png" alt="ذكريات 92">
-    <img src="gallery/093.jpg" alt="ذكريات 93">
-    <img src="gallery/094.jpg" alt="ذكريات 94">
-    <img src="gallery/095.jpg" alt="ذكريات 95">
-    <img src="gallery/096.jpg" alt="ذكريات 96">
-    <img src="gallery/097.jpg" alt="ذكريات 97">
-    <img src="gallery/098.png" alt="ذكريات 98">
-    <img src="gallery/099.png" alt="ذكريات 99">
-    <img src="gallery/100.jpg" alt="ذكريات 100">
-    <img src="gallery/101.jpg" alt="ذكريات 101">
-    <img src="gallery/102.jpg" alt="ذكريات 102">
-    <img src="gallery/103.jpg" alt="ذكريات 103">
-    <img src="gallery/104.jpg" alt="ذكريات 104">
-    <img src="gallery/105.jpg" alt="ذكريات 105">
-    <img src="gallery/106.jpg" alt="ذكريات 106">
-    <img src="gallery/107.jpg" alt="ذكريات 107">
-    <img src="gallery/108.jpg" alt="ذكريات 108">
-    <img src="gallery/109.jpg" alt="ذكريات 109">
-    <img src="gallery/110.jpg" alt="ذكريات 110">
-    <img src="gallery/111.png" alt="ذكريات 111">
-    <img src="gallery/112.png" alt="ذكريات 112">
-    <img src="gallery/113.jpg" alt="ذكريات 113">
-    <img src="gallery/114.jpg" alt="ذكريات 114">
-    <img src="gallery/115.jpg" alt="ذكريات 115">
-    <img src="gallery/116.jpg" alt="ذكريات 116">
-    <img src="gallery/117.jpg" alt="ذكريات 117">
-    <img src="gallery/118.jpg" alt="ذكريات 118">
-    <img src="gallery/119.jpg" alt="ذكريات 119">
-    <img src="gallery/120.jpg" alt="ذكريات 120">
-    <img src="gallery/121.jpg" alt="ذكريات 121">
-    <img src="gallery/122.jpg" alt="ذكريات 122">
-    <img src="gallery/123.jpg" alt="ذكريات 123">
-    <img src="gallery/124.jpg" alt="ذكريات 124">
-    <img src="gallery/125.jpg" alt="ذكريات 125">
-    <img src="gallery/126.jpg" alt="ذكريات 126">
-    <img src="gallery/127.jpg" alt="ذكريات 127">
-    <img src="gallery/128.jpg" alt="ذكريات 128">
-    <img src="gallery/129.jpg" alt="ذكريات 129">
-    <img src="gallery/130.jpg" alt="ذكريات 130">
-    <img src="gallery/131.jpg" alt="ذكريات 131">
-    <img src="gallery/132.jpg" alt="ذكريات 132">
-    <img src="gallery/133.jpg" alt="ذكريات 133">
-    <img src="gallery/134.jpg" alt="ذكريات 134">
-    <img src="gallery/135.jpg" alt="ذكريات 135">
-    <img src="gallery/136.jpg" alt="ذكريات 136">
-    <img src="gallery/137.jpg" alt="ذكريات 137">
-    <img src="gallery/138.jpg" alt="ذكريات 138">
-    <img src="gallery/139.jpg" alt="ذكريات 139">
-    <img src="gallery/140.jpg" alt="ذكريات 140">
-    <img src="gallery/141.jpg" alt="ذكريات 141">
-    <img src="gallery/142.jpg" alt="ذكريات 142">
-    <img src="gallery/143.jpg" alt="ذكريات 143">
-    <img src="gallery/144.jpg" alt="ذكريات 144">
-    <img src="gallery/145.jpg" alt="ذكريات 145">
-    <img src="gallery/146.jpg" alt="ذكريات 146">
-    <img src="gallery/147.jpg" alt="ذكريات 147">
-    <img src="gallery/148.jpg" alt="ذكريات 148">
-    <img src="gallery/149.jpg" alt="ذكريات 149">
-    <img src="gallery/150.jpg" alt="ذكريات 150">
-  </div>
+<!-- صوت عند النقر -->
+<audio id="clickSound" src="https://files.catbox.moe/8uf7ex.mp3"></audio>
+
+<div class="farah-name">Farah</div>
+
+<div class="intro">
+  <h1>إلى فرح…</h1>
+</div>
+
+<div class="whatsapp-bubble">كنت أهرب من كل شي… بس مو منك</div>
+<div class="whatsapp-bubble">حتى سكوتي كان يبكيك، بس أنتِ ما سمعتِ</div>
+<div class="whatsapp-bubble">فرح… ضيّعتِ فرحك وفرحي</div>
+
+<div class="grid" id="gallery"></div>
+
+<div class="lightbox" id="lightbox">
+  <span class="close-btn" onclick="closeLightbox()">×</span>
+  <span class="prev" onclick="navigate(-1)">←</span>
+  <img id="lightbox-img" src="">
+  <span class="next" onclick="navigate(1)">→</span>
+</div>
+
 
   <!-- المشهد الختامي -->
   <div class="final-scene">
@@ -408,6 +193,72 @@
     </div>
     <button onclick="location.href='home.html'" class="back-button">🔙 عُد إلى الصفحة الأساسية</button>
   </div>
+
+
+<!-- سكربت الصور + الصوت -->
+<script>
+  const gallery = document.getElementById("gallery");
+  const lightbox = document.getElementById("lightbox");
+  const lightboxImg = document.getElementById("lightbox-img");
+  const clickSound = document.getElementById("clickSound");
+  let currentIndex = 0;
+  const images = [];
+
+  for (let i = 1; i <= 150; i++) {
+    const num = String(i).padStart(3, '0');
+    const src = `gallery/${num}.jpg`;
+    images.push(src);
+
+    const img = document.createElement("img");
+    img.src = src;
+    img.alt = `ذكريات ${i}`;
+    img.onclick = () => {
+      openLightbox(i - 1);
+      clickSound.play();
+    };
+    gallery.appendChild(img);
+  }
+
+  function openLightbox(index) {
+    currentIndex = index;
+    lightboxImg.src = images[index];
+    lightbox.style.display = "flex";
+  }
+
+  function closeLightbox() {
+    lightbox.style.display = "none";
+  }
+
+  function navigate(direction) {
+    currentIndex += direction;
+    if (currentIndex < 0) currentIndex = images.length - 1;
+    if (currentIndex >= images.length) currentIndex = 0;
+    lightboxImg.src = images[currentIndex];
+  }
+</script>
+
+<!-- سكربت تشغيل الصوت بعد 3 ثواني أو أول تفاعل -->
+<script>
+  const bgmusic = document.getElementById('bgmusic');
+
+  // محاولة التشغيل بعد 3 ثواني
+  window.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => {
+      const promise = bgmusic.play();
+      if (promise !== undefined) {
+        promise.catch(() => {
+          // المتصفح رفض التشغيل التلقائي
+          console.warn("🔇 الصوت لم يعمل تلقائيًا");
+        });
+      }
+    }, 3000);
+  });
+
+  // تشغيل الصوت عند أول تفاعل
+  document.addEventListener('click', () => {
+    bgmusic.play();
+  }, { once: true });
+</script>
 
 </body>
 </html>
