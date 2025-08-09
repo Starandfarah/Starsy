@@ -85,7 +85,7 @@
     background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.08);
     border-radius:16px; padding:14px; backdrop-filter:blur(6px);
     transition:transform .25s ease, box-shadow .3s ease, border-color .3s ease;
-    position:relative; overflow:hidden;
+    position:relative; overflow:hidden; text-align:center;
   }
   .block::after{
     content:""; position:absolute; inset:-30% -10% auto -10%; height:60%;
@@ -103,11 +103,27 @@
   .caption{color:#bbb; margin-top:10px; font-size:1.05rem; font-style:italic; animation:cap 600ms ease}
   @keyframes cap{from{opacity:0; transform:translateY(6px)} to{opacity:1; transform:translateY(0)}}
 
-  /* وضع تشغيل سينمائي: تعتيم الخلفية وتركيز */
+  /* وضع تشغيل سينمائي */
   body.playing .block:not(.active){filter:grayscale(.8) brightness(.6) blur(.5px); transform:none}
   body.playing .block.active{box-shadow:0 0 0 2px rgba(255,77,109,.55), 0 0 40px rgba(255,0,80,.35)}
 
-  /* شريط تمرير غامق */
+  /* رماد طافٍ */
+  @keyframes float{
+    0%{ transform:translateY(0) translateX(0); opacity:.5 }
+    50%{ transform:translateY(-40vh) translateX(3vw); opacity:.25 }
+    100%{ transform:translateY(-80vh) translateX(-2vw); opacity:0 }
+  }
+
+  /* زر العودة + ختام */
+  .back-button{
+    display:inline-block; margin:12px auto 30px; padding:10px 16px; border-radius:12px;
+    color:#fff; text-decoration:none; border:1px solid rgba(255,255,255,.15);
+    background:rgba(255,255,255,.06); transition:.25s;
+  }
+  .back-button:hover{transform:translateY(-1px); box-shadow:var(--glow); border-color:rgba(255,77,109,.6)}
+  .fade-text{opacity:.85; margin:6px 0}
+  .signature{opacity:.7; font-size:.95rem}
+  /* شريط تمرير */
   ::-webkit-scrollbar{width:10px;height:10px}
   ::-webkit-scrollbar-thumb{background:rgba(255,255,255,.12); border-radius:20px}
   ::-webkit-scrollbar-track{background:rgba(255,255,255,.04)}
@@ -127,13 +143,25 @@
   </div>
 </header>
 
-<main class="video-container">
+<main>
   <section class="videos" id="videosGrid">
-    <!-- الكتل تولَّد تلقائياً عبر JS أدناه -->
+    <!-- الفيديوهات ستتولد هنا -->
   </section>
+
+  <a class="back-button" href="../home.html">← عُد إلى صفحة البداية</a>
+
+  <p class="fade-text">💔 في نهاية الذاكرة…</p>
+  <p class="fade-text">رحلتكِ ما كانت ذكرى… كانت وطن، وأنا أصبحت لاجئاً بعدك</p>
+  <p class="fade-text signature">ستار - آخر نبضة حنين، تموز 2025</p>
+
+  <div style="text-align:center; margin-top: 20px;">
+    <button onclick="window.location.href='../index.html'" class="back-button">
+      🔙 عودة إلى الصفحة الرئيسية
+    </button>
+  </div>
 </main>
 
-<!-- صوت اختياري -->
+<!-- موسيقى اختيارية -->
 <audio id="bgm" preload="none" loop>
   <source src="https://files.catbox.moe/h8tdkz.mp3" type="audio/mpeg" />
 </audio>
@@ -142,64 +170,53 @@
 /* ===== مقدّمة كتابة حرف-حرف ===== */
 const introText = "كل مقطع يهمس: كان هنا قلب… وكان هنا وطن.";
 const introEl = document.getElementById('intro');
-let i = 0;
-function typeNext(){
-  if(i <= introText.length){
-    introEl.textContent = introText.slice(0, i++);
+let ti = 0;
+(function typeNext(){
+  if(ti <= introText.length){
+    introEl.textContent = introText.slice(0, ti++);
     setTimeout(typeNext, 55);
   }else{
     introEl.classList.remove('cursor');
-  
+  }
+})();
 
+/* ===== بيانات الفيديوهات (من قائمتك) ===== */
+const items = [
+  {caption:"هذه اللحظة… تمنيت الزمن يوقف 🕰", src:"2023-05-24_D9DDC076-15CF-4DD5-92D4-8F6D77216814-main.mp4"},
+  {caption:"نظرتك كانت وطن وراح", src:"Snapchat-456095388.mp4"},
+  {caption:"كنا نضحك، واليوم حتى البكاء صعب 💔", src:"filtered-0D712297-C19E-421D-B8E5-6E7C351DA601.mp4"},
+  {caption:"ليش الوداع كان أسهل عليك؟", src:"2023-10-27_E5BD4CCE-A600-4100-B30D-52A29588D780-main.mp4"},
+  {caption:"أنا بعدك… بس مو أنا", src:"2024-01-06_C0E0FCD5-59DF-4336-8833-4F6C8632DE56-main.mp4"},
+  {caption:"خليتك تمشين… وأنا أنتهي", src:"2024-08-21_91EC9F9B-1E56-48B1-8E00-2442E24DE9F6-main.mp4"},
+  {caption:"أريد أنسى… والوجع يرفض", src:"2025-04-03_7E3F89BB-2F5B-4399-986A-EC638110745F-main.mp4"},
+  {caption:"أغنيتنا صارت تبكيني", src:"3F01CDA5-9D11-4059-8E92-599FDC44951A.mp4"},
+  {caption:"هاي اللحظة؟ صارت حلم مستحيل", src:"2023-03-25_02238C8C-7FB2-4A4F-BBDA-9B59CED2D673-main.mp4"},
+  {caption:"هذا المقطع شاهد على كلشي", src:"61F7DBBD-A96F-4611-8677-BA45C4105E2F.mp4"},
+  {caption:"لحظة كانت حلوة وصارت سم", src:"991F6113-6B93-4A92-8DD1-E75BCAB218C2.mp4"},
+  {caption:"ما توقعت النهاية تجي هيچ", src:"A56A9B64-B065-4B56-9E73-6CBEA68EB36E.mp4"},
+  {caption:"تفاصيلك كانت تبهرني… وذوبتني", src:"ad341761-2f59-46ac-931c-3227bb200943.mp4"},
+  {caption:"حتى الأماكن تبكي بعدك", src:"23932f1c-2131-4d09-9f3d-19b49fb7bcc2.mp4"},
+  {caption:"🎞️ فيديو 15", src:"IMG_1020.mp4"},
+  {caption:"مشيتِ… بس الذكرى ما مشيت", src:"Snapchat-445779982.mp4"},
+  {caption:"ما ودّعتك… بس كل نظرة وداع", src:"IMG_6243.mp4"},
+  {caption:"كل فيديو… جرح جديد 🩸", src:"Snapchat-2058943574.mp4"},
+  {caption:"الشارع هذا يحن لصوتك", src:"c562049c-bacc-4ce0-ade5-229e202869bc.mp4"},
+  {caption:"العيون ما تكذب… كنت أعرف", src:"94EDC6D6-CBEB-4D3C-BD1F-3F1289E7C7BF.mp4"},
+  {caption:"تركتيني بلا نظرة أخيرة", src:"Snapchat-445779982.mp4"},
+  {caption:"ضحكتك عايشة فيّ رغم الألم", src:"IMG_3922.mp4"},
+  {caption:"ياليتني قلت: لا تروحين", src:"https://files.catbox.moe/uwja7p.mov"},
+  {caption:"كان حضنك أمان، واليوم قلبي يخاف", src:"https://files.catbox.moe/r6gw93.mov"},
+  {caption:"صار حبك مثل النبض… موجع", src:"https://files.catbox.moe/om93jr.mov"},
+];
 
-</script>
-</body>
-<body>
-  
-
-
-
-
-<div class="video-container">
-<div><p>هذه اللحظة… تمنيت الزمن يوقف 🕰 </p><video controls=""><source src="2023-05-24_D9DDC076-15CF-4DD5-92D4-8F6D77216814-main.mp4" type="video/mp4"/></video></div>
-<div><p>نظرتك كانت وطن وراح</p><video controls=""><source src="Snapchat-456095388.mp4" type="video/mp4"/></video></div>
-<div><p> كنا نضحك، واليوم حتى البكاء صعب 💔 </p><video controls=""><source src="filtered-0D712297-C19E-421D-B8E5-6E7C351DA601.mp4" type="video/mp4"/></video></div>
-<div><p> ليش الوداع كان أسهل عليك؟</p><video controls=""><source src="2023-10-27_E5BD4CCE-A600-4100-B30D-52A29588D780-main.mp4" type="video/mp4"/></video></div>
-<div><p>أنا بعدك… بس مو أنا</p><video controls=""><source src="2024-01-06_C0E0FCD5-59DF-4336-8833-4F6C8632DE56-main.mp4" type="video/mp4"/></video></div>
-<div><p>خليتك تمشين… وأنا أنتهي</p><video controls=""><source src="2024-08-21_91EC9F9B-1E56-48B1-8E00-2442E24DE9F6-main.mp4" type="video/mp4"/></video></div>
-<div><p> أريد أنسى… والوجع يرفض</p><video controls=""><source src="2025-04-03_7E3F89BB-2F5B-4399-986A-EC638110745F-main.mp4" type="video/mp4"/></video></div>
-<div><p>أغنيتنا صارت تبكيني</p><video controls=""><source src="3F01CDA5-9D11-4059-8E92-599FDC44951A.mp4" type="video/mp4"/></video></div>
-<div><p>هاي اللحظة؟ صارت حلم مستحيل</p><video controls=""><source src="2023-03-25_02238C8C-7FB2-4A4F-BBDA-9B59CED2D673-main.mp4" type="video/mp4"/></video></div>
-<div><p>هذا المقطع شاهد على كلشي</p><video controls=""><source src="61F7DBBD-A96F-4611-8677-BA45C4105E2F.mp4" type="video/mp4"/></video></div>
-<div><p>لحظة كانت حلوة وصارت سم</p><video controls=""><source src="991F6113-6B93-4A92-8DD1-E75BCAB218C2.mp4" type="video/mp4"/></video></div>
-<div><p>ما توقعت النهاية تجي هيچ</p><video controls=""><source src="A56A9B64-B065-4B56-9E73-6CBEA68EB36E.mp4" type="video/mp4"/></video></div>
-<div><p>تفاصيلك كانت تبهرني… وذوبتني</p><video controls=""><source src="ad341761-2f59-46ac-931c-3227bb200943.mp4" type="video/mp4"/></video></div>
-<div><p>حتى الأماكن تبكي بعدك"</p><video controls=""><source src="23932f1c-2131-4d09-9f3d-19b49fb7bcc2.mp4" type="video/mp4"/></video></div>
-<div><p>🎞️ فيديو 15</p><video controls=""><source src="IMG_1020.mp4" type="video/mp4"/></video></div>
-<div><p>مشيتِ… بس الذكرى ما مشيت,</p><video controls=""><source src="Snapchat-445779982.mp4" type="video/mp4"/></video></div>
-<div><p>ما ودّعتك… بس كل نظرة وداع</p><video controls=""><source src="IMG_6243.mp4" type="video/mp4"/></video></div>
-<div><p>كل فيديو… جرح جديد 🩸</p><video controls=""><source src="Snapchat-2058943574.mp4" type="video/mp4"/></video></div>
-<div><p>الشارع هذا يحن لصوتك </p><video controls=""><source src="c562049c-bacc-4ce0-ade5-229e202869bc.mp4" type="video/mp4"/></video></div>
-<div><p>العيون ما تكذب… كنت أعرف</p><video controls=""><source src="94EDC6D6-CBEB-4D3C-BD1F-3F1289E7C7BF.mp4" type="video/mp4"/></video></div>
-<div><p>تركتيني بلا نظرة أخيرة"</p><video controls=""><source src="Snapchat-445779982.mp4" type="video/mp4"/></video></div>
-<div><p>ضحكتك عايشة فيّ رغم الألم"</p><video controls=""><source src="IMG_3922.mp4" type="video/mp4"/></video></div>
-<div><p>ياليتني قلت: لا تروحين"</p><video controls=""><source src="https://files.catbox.moe/uwja7p.mov"/></video></div>
-<div><p>كان حضنك أمان، واليوم قلبي يخاف</p><video controls=""><source src="https://files.catbox.moe/r6gw93.mov" type="video/mp4"/></video></div>
-<div><p>صار حبك مثل النبض… موجع</p><video controls=""><source src="https://files.catbox.moe/om93jr.mov"/></video></div>
-
-
-
-<a class="back-button" href="../home.html">← عُد إلى صفحة البداية</a>
-
-
- <script
+/* ===== توليد الشبكة ===== */
 const grid = document.getElementById('videosGrid');
-items.forEach((it, idx)=>{
+items.forEach((it)=>{
   const block = document.createElement('div'); block.className = 'block';
   const v = document.createElement('video');
   v.controls = true; v.preload = 'metadata';
   v.src = it.src; v.setAttribute('playsinline',''); v.setAttribute('webkit-playsinline','');
-  const cap = document.createElement('div'); cap.className = 'caption'; cap.textContent = `"${it.caption}"`;
+  const cap = document.createElement('div'); cap.className = 'caption'; cap.textContent = it.caption;
   block.appendChild(v); block.appendChild(cap); grid.appendChild(block);
 
   // تمييز العنصر عند التشغيل
@@ -237,47 +254,28 @@ dimBtn.addEventListener('click', ()=>{
   dimBtn.classList.toggle('muted', !dimManual);
 });
 
-/* ===== جزيئات رماد عائمة خفيفة (أداء لطيف) ===== */
+/* ===== جزيئات رماد عائمة خفيفة ===== */
 (function ashes(){
   const MAX = 40;
   const frag = document.createDocumentFragment();
   for(let i=0;i<MAX;i++){
     const s = document.createElement('span');
     const size = (Math.random()*2+1).toFixed(2);
-    const x = (Math.random()*100).toFixed(2);
-    const d = (Math.random()*18+14).toFixed(2); // المدة
-    s.style.cssText = `
-      position:fixed; left:${x}vw; top:${Math.random()*100}vh;
-      width:${size}px; height:${size}px; border-radius:50%;
-      background:rgba(255,255,255,.09); filter:blur(.5px);
-      pointer-events:none; z-index:-1; animation:float ${d}s linear infinite;
-    `;
+    s.style.position='fixed';
+    s.style.left = (Math.random()*100).toFixed(2) + 'vw';
+    s.style.top = (Math.random()*100).toFixed(2) + 'vh';
+    s.style.width = size+'px';
+    s.style.height = size+'px';
+    s.style.borderRadius = '50%';
+    s.style.background = 'rgba(255,255,255,.09)';
+    s.style.filter = 'blur(.5px)';
+    s.style.pointerEvents = 'none';
+    s.style.zIndex = '-1';
+    s.style.animation = `float ${(Math.random()*18+14).toFixed(2)}s linear infinite`;
     frag.appendChild(s);
   }
   document.body.appendChild(frag);
 })();
-const style = document.createElement('style');
-
-<style> 
-@keyframes float{
-  0%{ transform:translateY(0) translateX(0); opacity:.5 }
-  50%{ transform:translateY(-40vh) translateX(3vw); opacity:.25 }
-  100%{ transform:translateY(-80vh) translateX(-2vw); opacity:0 }
-}`;
-document.head.appendChild(style);
 </script>
-
-<p class="fade-text">💔 في نهاية الذاكرة…</p>
-<p class="fade-text">رحلتكِ ما كانت ذكرى… كانت وطن، وأنا أصبحت لاجئاً بعدك</p>
-<p class="fade-text signature">ستار - آخر نبضة حنين، تموز 2025</p>
-</div>
-
-<div style="text-align:center; margin-top: 40px;">
-<button onclick="window.location.href='../index.html'" class="back-button">
-  🔙 عودة إلى الصفحة الرئيسية
-</button>
-</div>
 </body>
 </html>
-
-    
