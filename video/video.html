@@ -1,213 +1,271 @@
 <!DOCTYPE html>
-
-<html dir="rtl" lang="ar">
+<html lang="ar" dir="rtl">
 <head>
-<meta charset="utf-8"/>
-<title>رحلة الذكرى - عرض مؤثر</title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>🎞️ سينما الذكرى</title>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap" rel="stylesheet" />
+
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Amiri&display=swap');
-    body {
-      margin: 0;
-      padding: 30px;
-      background: linear-gradient(to bottom, #0a0a0a, #1a1a1a);
-      color: #f2f2f2;
-      font-family: 'Amiri', serif;
-      text-align: center;
-      overflow-x: hidden;
-      position: relative;
-    }
-    h1 {
-      font-size: 2.5em;
-      margin-bottom: 30px;
-      text-shadow: 0 0 10px #ffb3b3;
-      animation: pulse 2s infinite, fadeIn 3s ease-out forwards;
-      opacity: 0;
-    }
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.02); }
-      100% { transform: scale(1); }
-    }
-    .video-container {
-      display: flex;
-      flex-direction: column;
-      gap: 40px;
-      align-items: center;
-      z-index: 10;
-      position: relative;
-    }
-    .video-container div {
-      opacity: 0;
-      transform: translateY(50px);
-      animation: fadeInUp 1s forwards;
-    }
-    .video-container div:nth-child(1) { animation-delay: 0.5s; }
-    .video-container div:nth-child(2) { animation-delay: 1s; }
-    .video-container div:nth-child(3) { animation-delay: 1.5s; }
-    .video-container div:nth-child(4) { animation-delay: 2s; }
-    .video-container div:nth-child(5) { animation-delay: 2.5s; }
-    .video-container div:nth-child(6) { animation-delay: 3s; }
-    .video-container div:nth-child(7) { animation-delay: 3.5s; }
-    .video-container div:nth-child(8) { animation-delay: 4s; }
-    .video-container div:nth-child(9) { animation-delay: 4.5s; }
-    .video-container div:nth-child(10) { animation-delay: 5s; }
-    .video-container div:nth-child(11) { animation-delay: 5.5s; }
-    .video-container div:nth-child(12) { animation-delay: 6s; }.   
-    .video-container div:nth-child(13) {      animation-delay: 6.5s; }
-    .video-container div:nth-child(14) {      animation-delay: 7s; }
-    .video-container div:nth-child(15) {      animation-delay: 7.5s; }
-    .video-container div:nth-child(16) {      animation-delay: 8s; }
-    .video-container div:nth-child(17) {      animation-delay: 8.5s; }
-    .video-container div:nth-child(18) {      animation-delay: 9s; }
-    .video-container div:nth-child(19) {      animation-delay: 9.5s; }
-    .video-container div:nth-child(20) {      animation-delay: 10s; }
-    @keyframes fadeInUp {
-      to { opacity: 1; transform: translateY(0); }
-    }
+  :root{
+    --bg1:#000; --bg2:#1b0033; --accent:#ff4d6d; --soft:#ccc;
+    --glow:0 0 22px rgba(255,0,80,.45), 0 0 44px rgba(255,0,80,.25);
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0; font-family:'Amiri',serif; color:#fff; text-align:center; overflow-x:hidden;
+    background:linear-gradient(to bottom,var(--bg1),var(--bg2) 70%,var(--bg1));
+  }
 
-    video {
-      width: 90%;
-      max-width: 800px;
-      border-radius: 12px;
-      box-shadow: 0 0 25px rgba(255, 255, 255, 0.08);
-    }
+  /* طبقة فنييت + ضوء متحرك */
+  body::before, body::after{content:""; pointer-events:none; position:fixed; inset:0; z-index:-1}
+  /* رماد خفيف */
+  body::before{
+    background:
+      radial-gradient(80vmax 80vmax at 50% 20%, rgba(255,255,255,.02) 0%, transparent 60%) ,
+      url("data:image/svg+xml;utf8,\
+<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'>\
+<circle cx='10' cy='20' r='1' fill='white' opacity='.07'/>\
+<circle cx='60' cy='70' r='1' fill='white' opacity='.10'/>\
+<circle cx='120' cy='30' r='1' fill='white' opacity='.05'/>\
+<circle cx='90' cy='110' r='1' fill='white' opacity='.08'/>\
+</svg>") repeat;
+    mix-blend-mode:screen; opacity:.25; animation:drift 30s linear infinite;
+  }
+  /* فنييت */
+  body::after{
+    background:
+      radial-gradient(120vmax 120vmax at 50% -20%, transparent 30%, rgba(0,0,0,.55) 65%),
+      radial-gradient(140vmax 140vmax at 50% 120%, transparent 40%, rgba(0,0,0,.65) 70%);
+  }
+  @keyframes drift{
+    0%{background-position:0 0, 0 0}
+    100%{background-position:0 0, 140px 280px}
+  }
 
-    .footer, .signature {
-      margin-top: 40px;
-      font-size: 14px;
-      color: #aaa;
-      z-index: 10;
-      position: relative;
-    }
-    .signature {
-      margin-top: 10px;
-      font-size: 13px;
-      color: #777;
-    }
+  /* هيدر */
+  header{padding:64px 16px 32px}
+  h1{margin:0 0 10px; color:var(--accent); text-shadow:0 0 18px rgba(255,0,80,.5)}
+  .lead{
+    margin:0 auto; max-width:780px; color:var(--soft); font-size:1.15rem; line-height:1.9;
+    opacity:.9;
+  }
+  /* كتابة حرف-حرف */
+  .type{
+    display:inline-block; border-right:2px solid rgba(255,255,255,.35);
+    white-space:nowrap; overflow:hidden
+  }
+  .cursor{animation:blink 1s steps(1) infinite}
+  @keyframes blink{50%{border-right-color:transparent}}
 
-    .heart {
-      position: fixed;
-      width: 15px;
-      height: 15px;
-      background: red;
-      transform: rotate(45deg);
-      animation: float 7s infinite;
-      z-index: 1;
-    }
-    .heart::before,
-    .heart::after {
-      content: "";
-      position: absolute;
-      width: 15px;
-      height: 15px;
-      background: red;
-      border-radius: 50%;
-    }
-    .heart::before { top: -7.5px; left: 0; }
-    .heart::after { left: -7.5px; top: 0; }
+  /* شريط أدوات */
+  .toolbar{
+    margin:26px auto 10px; display:flex; gap:10px; justify-content:center; align-items:center; flex-wrap:wrap;
+  }
+  .btn{
+    appearance:none; border:1px solid rgba(255,255,255,.15); background:rgba(255,255,255,.06);
+    color:#fff; padding:10px 16px; border-radius:12px; cursor:pointer; transition:.25s;
+    font-family:'Amiri',serif; font-size:1rem; box-shadow:0 0 0 transparent;
+  }
+  .btn:hover{transform:translateY(-1px); box-shadow:var(--glow); border-color:rgba(255,77,109,.6)}
+  .muted{opacity:.8}
 
-    @keyframes float {
-      0% { transform: translateY(0) rotate(45deg); opacity: 1; }
-      100% { transform: translateY(-100vh) rotate(45deg); opacity: 0; }
-    }
+  /* شبكة الفيديوهات */
+  .videos{
+    width:min(1200px,92vw); margin:22px auto 80px;
+    display:grid; gap:28px;
+    grid-template-columns:repeat(3, 1fr);
+  }
+  @media (max-width:980px){ .videos{grid-template-columns:repeat(2,1fr)} }
+  @media (max-width:620px){ .videos{grid-template-columns:1fr} }
 
-    .rain {
-      position: fixed;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      background: repeating-linear-gradient(
-        to bottom,
-        rgba(255, 255, 255, 0.04),
-        rgba(255, 255, 255, 0.04) 2px,
-        transparent 2px,
-        transparent 4px
-      );
-      animation: rain 0.4s linear infinite;
-      z-index: 0;
-    }
-    @keyframes rain {
-      0% { background-position: 0 0; }
-      100% { background-position: 0 4px; }
-    }
+  .block{
+    background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.08);
+    border-radius:16px; padding:14px; backdrop-filter:blur(6px);
+    transition:transform .25s ease, box-shadow .3s ease, border-color .3s ease;
+    position:relative; overflow:hidden;
+  }
+  .block::after{
+    content:""; position:absolute; inset:-30% -10% auto -10%; height:60%;
+    background:radial-gradient(60% 60% at 50% 50%, rgba(255,0,80,.12), transparent 60%);
+    transform:translateY(100%); transition:transform .6s ease; pointer-events:none;
+  }
+  .block:hover{transform:translateY(-4px); box-shadow:var(--glow); border-color:rgba(255,77,109,.35)}
+  .block:hover::after{transform:translateY(0)}
 
-    .back-button {
-      margin-top: 50px;
-      display: inline-block;
-      background-color: #ffcccc22;
-      border: 1px solid #ff9999;
-      padding: 10px 25px;
-      color: #fff;
-      text-decoration: none;
-      border-radius: 8px;
-      transition: 0.3s ease;
-    }
-    .back-button:hover {
-      background-color: #ff999944;
-    }
-  
+  video{
+    width:100%; display:block; border-radius:10px;
+    box-shadow:0 0 18px rgba(255,255,255,.12);
+    outline:none; background:#000; aspect-ratio:16/9;
+  }
+  .caption{color:#bbb; margin-top:10px; font-size:1.05rem; font-style:italic; animation:cap 600ms ease}
+  @keyframes cap{from{opacity:0; transform:translateY(6px)} to{opacity:1; transform:translateY(0)}}
 
-.closing-scene {
-  margin-top: 100px;
-  padding: 40px;
-  background: rgba(255,255,255,0.03);
-  border-top: 1px solid #444;
-  text-align: center;
-  font-size: 18px;
-  color: #ffdddd;
-  animation: fadein 5s ease-in;
-}
-.fade-text {
-  opacity: 0;
-  animation: fadein 3s ease-in forwards;
-}
-.fade-text:nth-child(2) {
-  animation-delay: 2s;
-}
-.fade-text:nth-child(3) {
-  animation-delay: 4s;
-}
-@keyframes fadein {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
+  /* وضع تشغيل سينمائي: تعتيم الخلفية وتركيز */
+  body.playing .block:not(.active){filter:grayscale(.8) brightness(.6) blur(.5px); transform:none}
+  body.playing .block.active{box-shadow:0 0 0 2px rgba(255,77,109,.55), 0 0 40px rgba(255,0,80,.35)}
+
+  /* شريط تمرير غامق */
+  ::-webkit-scrollbar{width:10px;height:10px}
+  ::-webkit-scrollbar-thumb{background:rgba(255,255,255,.12); border-radius:20px}
+  ::-webkit-scrollbar-track{background:rgba(255,255,255,.04)}
 </style>
 </head>
 <body>
-<audio autoplay="" loop="">
-<source src="https://files.catbox.moe/hmqvtp.mp3" type="audio/mpeg"/>
+
+<header>
+  <h1>سينما الذكرى 🥀</h1>
+  <p class="lead">
+    <span id="intro" class="type cursor"></span>
+  </p>
+
+  <div class="toolbar">
+    <button id="musicBtn" class="btn">تشغيل الموسيقى 🎵</button>
+    <button id="dimBtn" class="btn muted">وضع السينما 🎬</button>
+  </div>
+</header>
+
+<main class="video-container">
+  <section class="videos" id="videosGrid">
+    <!-- الكتل تولَّد تلقائياً عبر JS أدناه -->
+  </section>
+</main>
+
+<!-- صوت اختياري -->
+<audio id="bgm" preload="none" loop>
+  <source src="https://files.catbox.moe/h8tdkz.mp3" type="audio/mpeg" />
 </audio>
-<div class="rain"></div>
-<div class="heart" style="left: 20%; animation-delay: 0s;"></div>
-<div class="heart" style="left: 40%; animation-delay: 2s;"></div>
-<div class="heart" style="left: 60%; animation-delay: 4s;"></div>
-<div class="heart" style="left: 80%; animation-delay: 1s;"></div>
-<h1>💔 كل لحظات الذاكرة تحت المطر</h1>
+
+<script>
+/* ===== مقدّمة كتابة حرف-حرف ===== */
+const introText = "كل مقطع يهمس: كان هنا قلب… وكان هنا وطن.";
+const introEl = document.getElementById('intro');
+let i = 0;
+function typeNext(){
+  if(i <= introText.length){
+    introEl.textContent = introText.slice(0, i++);
+    setTimeout(typeNext, 55);
+  }else{
+    introEl.classList.remove('cursor');
+  
+
+
+</script>
+</body>
+<body>
+
+
+
+
 <div class="video-container">
-<div><p>🎞️ فيديو 1</p><video controls=""><source src="2023-05-24_D9DDC076-15CF-4DD5-92D4-8F6D77216814-main.mp4" type="video/mp4"/></video></div>
-<div><p>🎞️ فيديو 2</p><video controls=""><source src="Snapchat-456095388.mp4" type="video/mp4"/></video></div>
-<div><p>🎞️ فيديو 3</p><video controls=""><source src="filtered-0D712297-C19E-421D-B8E5-6E7C351DA601.mp4" type="video/mp4"/></video></div>
-<div><p>🎞️ فيديو 4</p><video controls=""><source src="2023-10-27_E5BD4CCE-A600-4100-B30D-52A29588D780-main.mp4" type="video/mp4"/></video></div>
-<div><p>🎞️ فيديو 5</p><video controls=""><source src="2024-01-06_C0E0FCD5-59DF-4336-8833-4F6C8632DE56-main.mp4" type="video/mp4"/></video></div>
-<div><p>🎞️ فيديو 6</p><video controls=""><source src="2024-08-21_91EC9F9B-1E56-48B1-8E00-2442E24DE9F6-main.mp4" type="video/mp4"/></video></div>
-<div><p>🎞️ فيديو 7</p><video controls=""><source src="2025-04-03_7E3F89BB-2F5B-4399-986A-EC638110745F-main.mp4" type="video/mp4"/></video></div>
-<div><p>🎞️ فيديو 8</p><video controls=""><source src="3F01CDA5-9D11-4059-8E92-599FDC44951A.mp4" type="video/mp4"/></video></div>
-<div><p>🎞️ فيديو 9</p><video controls=""><source src="2023-03-25_02238C8C-7FB2-4A4F-BBDA-9B59CED2D673-main.mp4" type="video/mp4"/></video></div>
-<div><p>🎞️ فيديو 10</p><video controls=""><source src="61F7DBBD-A96F-4611-8677-BA45C4105E2F.mp4" type="video/mp4"/></video></div>
-<div><p>🎞️ فيديو 11</p><video controls=""><source src="991F6113-6B93-4A92-8DD1-E75BCAB218C2.mp4" type="video/mp4"/></video></div>
-<div><p>🎞️ فيديو 12</p><video controls=""><source src="A56A9B64-B065-4B56-9E73-6CBEA68EB36E.mp4" type="video/mp4"/></video></div>
-<div><p>🎞️ فيديو 13</p><video controls=""><source src="ad341761-2f59-46ac-931c-3227bb200943.mp4" type="video/mp4"/></video></div>
-<div><p>🎞️ فيديو 14</p><video controls=""><source src="23932f1c-2131-4d09-9f3d-19b49fb7bcc2.mp4" type="video/mp4"/></video></div>
+<div><p>هذه اللحظة… تمنيت الزمن يوقف 🕰 </p><video controls=""><source src="2023-05-24_D9DDC076-15CF-4DD5-92D4-8F6D77216814-main.mp4" type="video/mp4"/></video></div>
+<div><p>نظرتك كانت وطن وراح</p><video controls=""><source src="Snapchat-456095388.mp4" type="video/mp4"/></video></div>
+<div><p> كنا نضحك، واليوم حتى البكاء صعب 💔 </p><video controls=""><source src="filtered-0D712297-C19E-421D-B8E5-6E7C351DA601.mp4" type="video/mp4"/></video></div>
+<div><p> ليش الوداع كان أسهل عليك؟</p><video controls=""><source src="2023-10-27_E5BD4CCE-A600-4100-B30D-52A29588D780-main.mp4" type="video/mp4"/></video></div>
+<div><p>أنا بعدك… بس مو أنا</p><video controls=""><source src="2024-01-06_C0E0FCD5-59DF-4336-8833-4F6C8632DE56-main.mp4" type="video/mp4"/></video></div>
+<div><p>خليتك تمشين… وأنا أنتهي</p><video controls=""><source src="2024-08-21_91EC9F9B-1E56-48B1-8E00-2442E24DE9F6-main.mp4" type="video/mp4"/></video></div>
+<div><p> أريد أنسى… والوجع يرفض</p><video controls=""><source src="2025-04-03_7E3F89BB-2F5B-4399-986A-EC638110745F-main.mp4" type="video/mp4"/></video></div>
+<div><p>أغنيتنا صارت تبكيني</p><video controls=""><source src="3F01CDA5-9D11-4059-8E92-599FDC44951A.mp4" type="video/mp4"/></video></div>
+<div><p>هاي اللحظة؟ صارت حلم مستحيل</p><video controls=""><source src="2023-03-25_02238C8C-7FB2-4A4F-BBDA-9B59CED2D673-main.mp4" type="video/mp4"/></video></div>
+<div><p>هذا المقطع شاهد على كلشي</p><video controls=""><source src="61F7DBBD-A96F-4611-8677-BA45C4105E2F.mp4" type="video/mp4"/></video></div>
+<div><p>لحظة كانت حلوة وصارت سم</p><video controls=""><source src="991F6113-6B93-4A92-8DD1-E75BCAB218C2.mp4" type="video/mp4"/></video></div>
+<div><p>ما توقعت النهاية تجي هيچ</p><video controls=""><source src="A56A9B64-B065-4B56-9E73-6CBEA68EB36E.mp4" type="video/mp4"/></video></div>
+<div><p>تفاصيلك كانت تبهرني… وذوبتني</p><video controls=""><source src="ad341761-2f59-46ac-931c-3227bb200943.mp4" type="video/mp4"/></video></div>
+<div><p>حتى الأماكن تبكي بعدك"</p><video controls=""><source src="23932f1c-2131-4d09-9f3d-19b49fb7bcc2.mp4" type="video/mp4"/></video></div>
 <div><p>🎞️ فيديو 15</p><video controls=""><source src="IMG_1020.mp4" type="video/mp4"/></video></div>
-<div><p>🎞️ فيديو 16</p><video controls=""><source src="Snapchat-445779982.mp4" type="video/mp4"/></video></div>
-<div><p>🎞️ فيديو 17</p><video controls=""><source src="IMG_6243.mp4" type="video/mp4"/></video></div>
-<div><p>🎞️ فيديو 18</p><video controls=""><source src="Snapchat-2058943574.mp4" type="video/mp4"/></video></div>
-<div><p>🎞️ 19فيديو </p><video controls=""><source src="c562049c-bacc-4ce0-ade5-229e202869bc.mp4" type="video/mp4"/></video></div>
-<div><p>🎞️ فيديو 20</p><video controls=""><source src="94EDC6D6-CBEB-4D3C-BD1F-3F1289E7C7BF.mp4" type="video/mp4"/></video></div>
+<div><p>مشيتِ… بس الذكرى ما مشيت,</p><video controls=""><source src="Snapchat-445779982.mp4" type="video/mp4"/></video></div>
+<div><p>ما ودّعتك… بس كل نظرة وداع</p><video controls=""><source src="IMG_6243.mp4" type="video/mp4"/></video></div>
+<div><p>كل فيديو… جرح جديد 🩸</p><video controls=""><source src="Snapchat-2058943574.mp4" type="video/mp4"/></video></div>
+<div><p>الشارع هذا يحن لصوتك </p><video controls=""><source src="c562049c-bacc-4ce0-ade5-229e202869bc.mp4" type="video/mp4"/></video></div>
+<div><p>العيون ما تكذب… كنت أعرف</p><video controls=""><source src="94EDC6D6-CBEB-4D3C-BD1F-3F1289E7C7BF.mp4" type="video/mp4"/></video></div>
+<div><p>تركتيني بلا نظرة أخيرة"</p><video controls=""><source src="Snapchat-445779982.mp4" type="video/mp4"/></video></div>
+<div><p>ضحكتك عايشة فيّ رغم الألم"</p><video controls=""><source src="IMG_3922.mp4" type="video/mp4"/></video></div>
+<div><p>ياليتني قلت: لا تروحين"</p><video controls=""><source src="https://files.catbox.moe/uwja7p.mov"/></video></div>
+<div><p>كان حضنك أمان، واليوم قلبي يخاف</p><video controls=""><source src="https://files.catbox.moe/r6gw93.mov" type="video/mp4"/></video></div>
+<div><p>صار حبك مثل النبض… موجع</p><video controls=""><source src="https://files.catbox.moe/om93jr.mov"/></video></div>
+
+
+
 <a class="back-button" href="../home.html">← عُد إلى صفحة البداية</a>
-<div class="footer">هذه ليست صفحة… إنها نبض الذكرى في قلب مكسور 💔</div>
-<div class="signature">إعداد: ستار 💔 — تمّت في تموز 2025</div>
-<div class="closing-scene">
+
+
+ <script
+const grid = document.getElementById('videosGrid');
+items.forEach((it, idx)=>{
+  const block = document.createElement('div'); block.className = 'block';
+  const v = document.createElement('video');
+  v.controls = true; v.preload = 'metadata';
+  v.src = it.src; v.setAttribute('playsinline',''); v.setAttribute('webkit-playsinline','');
+  const cap = document.createElement('div'); cap.className = 'caption'; cap.textContent = `"${it.caption}"`;
+  block.appendChild(v); block.appendChild(cap); grid.appendChild(block);
+
+  // تمييز العنصر عند التشغيل
+  v.addEventListener('play', ()=>{
+    document.body.classList.add('playing');
+    document.querySelectorAll('.block').forEach(b=>b.classList.remove('active'));
+    block.classList.add('active');
+  });
+  // عند الإيقاف إذا ما في فيديو آخر شغّال نلغي وضع السينما
+  v.addEventListener('pause', ()=> {
+    setTimeout(()=>{
+      const anyPlaying = [...document.querySelectorAll('video')].some(x=>!x.paused && !x.ended);
+      if(!anyPlaying){ document.body.classList.remove('playing'); block.classList.remove('active'); }
+    }, 50);
+  });
+});
+
+/* ===== زر الموسيقى ===== */
+const music = document.getElementById('bgm');
+const musicBtn = document.getElementById('musicBtn');
+let musicOn = false;
+musicBtn.addEventListener('click', async ()=>{
+  try{
+    if(!musicOn){ await music.play(); musicOn = true; musicBtn.textContent = "إيقاف الموسيقى ⏸️"; }
+    else{ music.pause(); musicOn = false; musicBtn.textContent = "تشغيل الموسيقى 🎵"; }
+  }catch(e){ console.log(e); }
+});
+
+/* ===== زر وضع السينما اليدوي ===== */
+const dimBtn = document.getElementById('dimBtn');
+let dimManual = false;
+dimBtn.addEventListener('click', ()=>{
+  dimManual = !dimManual;
+  document.body.classList.toggle('playing', dimManual);
+  dimBtn.classList.toggle('muted', !dimManual);
+});
+
+/* ===== جزيئات رماد عائمة خفيفة (أداء لطيف) ===== */
+(function ashes(){
+  const MAX = 40;
+  const frag = document.createDocumentFragment();
+  for(let i=0;i<MAX;i++){
+    const s = document.createElement('span');
+    const size = (Math.random()*2+1).toFixed(2);
+    const x = (Math.random()*100).toFixed(2);
+    const d = (Math.random()*18+14).toFixed(2); // المدة
+    s.style.cssText = `
+      position:fixed; left:${x}vw; top:${Math.random()*100}vh;
+      width:${size}px; height:${size}px; border-radius:50%;
+      background:rgba(255,255,255,.09); filter:blur(.5px);
+      pointer-events:none; z-index:-1; animation:float ${d}s linear infinite;
+    `;
+    frag.appendChild(s);
+  }
+  document.body.appendChild(frag);
+})();
+const style = document.createElement('style');
+
+<style> 
+@keyframes float{
+  0%{ transform:translateY(0) translateX(0); opacity:.5 }
+  50%{ transform:translateY(-40vh) translateX(3vw); opacity:.25 }
+  100%{ transform:translateY(-80vh) translateX(-2vw); opacity:0 }
+}`;
+document.head.appendChild(style);
+</script>
+
 <p class="fade-text">💔 في نهاية الذاكرة…</p>
 <p class="fade-text">رحلتكِ ما كانت ذكرى… كانت وطن، وأنا أصبحت لاجئاً بعدك</p>
 <p class="fade-text signature">ستار - آخر نبضة حنين، تموز 2025</p>
@@ -218,5 +276,9 @@
   🔙 عودة إلى الصفحة الرئيسية
 </button>
 </div>
+</body>
+</html>
+
+    
 </body>
 </html>
