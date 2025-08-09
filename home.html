@@ -3,12 +3,193 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
 <link href="https://fonts.googleapis.com/css2?family=Amiri&display=swap" rel="stylesheet"/>
+<title>ذكرى حبيبت قلبي وتوأم روحي فرح 💔</title>
+
 <style>
+:root { --pink:#ff4d6d; }
+
+/* تنسيقات أساسية */
+body {
+  font-family: 'Amiri', serif;
+  margin: 0; padding: 0;
+  color: #fff; text-align: center;
+  background: linear-gradient(to bottom, #000, #1b0033, #000);
+  overflow-x: hidden;
+  padding-bottom: calc(72px + env(safe-area-inset-bottom));
+}
+
+/* مؤثر المطر + الضوضاء */
+body::before {
+  content: "";
+  position: fixed; inset: 0;
+  background: url("https://pngimg.com/uploads/rain/rain_PNG12959.png") repeat;
+  opacity: .07;
+  animation: rainAnim .5s linear infinite;
+  pointer-events: none;
+  z-index: -1;
+}
+@keyframes rainAnim {0%{background-position:0 0}100%{background-position:8% 80%}}
+body::after {
+  content: "";
+  position: fixed; inset: 0;
+  background: url("https://raw.githubusercontent.com/creotiv/animated-noise-bg/main/noise.png");
+  opacity: .03;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* العنوان */
+h1 {
+  margin: 110px 12px 10px;
+  font-size: 2.6em;
+  color: var(--pink);
+  text-shadow: 0 0 22px rgba(255,0,51,.6);
+  animation: pulse 3s infinite;
+}
+@keyframes pulse {0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+
+/* النصوص */
+p {
+  font-size: 1.1em;
+  color: #ddd;
+  margin: 8px 14px 16px;
+}
+
+/* معرض الصور */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 26px;
+  max-width: 1100px;
+  margin: 26px auto;
+  padding: 0 14px;
+}
+.image-section { position: relative; }
+.image-section img.main {
+  width: 100%; height: auto; border-radius: 12px;
+  transition: filter .6s ease, transform .6s ease, opacity .6s ease;
+}
+.image-section img.crack {
+  position: absolute; inset: 0; margin: auto;
+  width: 100%; height: auto;
+  opacity: 0; pointer-events: none;
+  transform: scale(1.02);
+  filter: drop-shadow(0 0 12px rgba(0,0,0,.45));
+}
+.image-section.broken img.main {
+  filter: grayscale(1) blur(1.5px) brightness(.7);
+  transform: scale(1.03) rotate(-1deg);
+  opacity: .45;
+}
+.image-section.broken img.crack { animation: crackFade 2s ease forwards }
+.image-section.broken { animation: shock .45s ease }
+
+@keyframes crackFade {
+  0% {opacity: 0; transform: scale(1.02)}
+  20%{opacity: 1; transform: scale(1)}
+  100%{opacity: 0; transform: scale(1)}
+}
+@keyframes shock {
+  0%{ transform: translate(0,0) rotate(0) }
+  20%{ transform: translate(-2px,1px) rotate(-0.4deg) }
+  40%{ transform: translate(2px,-1px) rotate(0.4deg) }
+  60%{ transform: translate(-1px,1px) rotate(-0.3deg) }
+  80%{ transform: translate(1px,-1px) rotate(0.3deg) }
+  100%{ transform: translate(0,0) rotate(0) }
+}
+
+/* احتراق النص */
+.burning { animation: burn 4s forwards }
+@keyframes burn {
+  0%{ filter: brightness(1) drop-shadow(0 0 5px orange); opacity: 1 }
+  50%{ filter: brightness(1.5) drop-shadow(0 0 15px red); opacity: .75 }
+  100%{ filter: blur(5px); opacity: 0 }
+}
+
+/* شريط التنقل المعزول */
+.fm-nav, .fm-nav * {
+  all: unset;
+  display: revert;
+  box-sizing: border-box;
+}
+.fm-nav {
+  font-family: 'Amiri', serif;
+  z-index: 9999;
+}
+.fm-tabs {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.fm-tab {
+  text-decoration: none;
+  color: #fff;
+  font-weight: 700;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid var(--pink);
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(255,0,51,.28);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  min-height: 48px;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.fm-tab:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 0 22px rgba(255,0,51,.55);
+}
+.fm-ico { font-size: 18px; line-height: 1; }
+.fm-lbl { font-size: .88rem; }
+@media (max-width: 680px) {
+  .fm-nav {
+    position: fixed;
+    bottom: 0; left: 0; right: 0;
+    background: rgba(0,0,0,.6);
+    backdrop-filter: blur(12px);
+    border-top: 1px solid rgba(255,255,255,.12);
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  .fm-tabs {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    padding: 8px 10px;
+  }
+}
+@media (min-width: 681px) {
+  .fm-nav {
+    position: sticky;
+    top: 0;
+    background: rgba(0,0,0,.35);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255,255,255,.12);
+  }
+  .fm-tabs {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px 14px;
+  }
+  .fm-tab {
+    flex-direction: row;
+    gap: 8px;
+    padding: 10px 16px;
+    min-height: auto;
+  }
+  .fm-ico { font-size: 16px; }
+  .fm-lbl { font-size: 1rem; }
+}
+
   body
-  { color:#ffccff; font-weight:;
+  { color:#ffccff; font-weight:bold;
     margin:0; padding:0; font-family:'Amiri',serif;
     background:linear-gradient(to bottom,#000,#1b0033,#000);
     color:#fff; text-align:center;
@@ -29,13 +210,13 @@
 
   /* عنوان بنبض + سيحترق لاحقًا */
   h1{
-    font-size:3em; color:#ff4d6d; margin-top:90px;
+    font-size:3em; color:#ff4d6d; margin-top:110px;
     text-shadow:0 0 25px rgba(255,0,51,.6); animation:pulse 3s infinite;
   }
   @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
    /* NAV متوهّج */
     nav{
-      width:100%; padding:12px 30px; position:fixed; top:0; right:0; z-index:900;
+      width:100%; padding:12px 30px; position:fixed; top:0; right:0; z-index:1000;
       background:rgba(0,0,0,.3); backdrop-filter:blur(10px);
       border-bottom:1px solid rgba(255,255,255,.1);
       box-shadow:0 0 12px rgba(255,100,255,.2); transition:background .5s ease;
@@ -123,11 +304,86 @@
     }
     .glow-btn:hover{ background:rgba(255,0,51,.1); box-shadow:0 0 25px rgba(255,0,51,.6); transform:scale(1.05) }
 
+    /* موبايل */
+    @media (max-width:600px){
+      h1{ font-size:2.2em; margin-top:90px }
+      .image-section img{ max-width:85% }
+      .container{ padding:16px }
+    }
+    
+  /* احتراق عام للنصوص */
+  @keyframes burn{
+    0%{ filter:brightness(1) drop-shadow(0 0 5px orange); opacity:1 }
+    50%{ filter:brightness(1.5) drop-shadow(0 0 15px red); opacity:.75 }
+    100%{ filter:blur(5px); opacity:0 }
+  }
+  .burning{ animation:burn 4s forwards }
 
-  </style>
-</style>
-</head>
-<body>
+  p{ font-size:1.2em; color:#ccc; margin:30px 0 40px }
+
+  /* الصورة + التشقق */
+  .image-section{ position:relative; margin:40px 0; text-align:center; display:inline-block }
+  .image-section img.main{
+    max-width:60vw; height:auto; border-radius:12px; transition:filter .6s ease, transform .6s ease, opacity .6s ease;
+  }
+  /* طبقة الزجاج المكسور (Overlay) */
+  .crack-overlay{
+    position:absolute; inset:0; margin:auto; max-width:60vw; height:auto; pointer-events:none;
+    opacity:0; transform:scale(1.02);
+    filter:drop-shadow(0 0 12px rgba(0,0,0,.45));
+  }
+  /* إظهار التشقق ثم تلاشيه */
+  @keyframes crackFade {
+    0% { opacity:0; transform:scale(1.02) }
+    20%{ opacity:1; transform:scale(1.0) }
+    100%{ opacity:0; transform:scale(1.0) }
+  }
+  /* هزة خفيفة لحظة الصدمة */
+  @keyframes shock {
+    0%{ transform:translate(0,0) rotate(0) }
+    20%{ transform:translate(-2px,1px) rotate(-0.4deg) }
+    40%{ transform:translate(2px,-1px) rotate(0.4deg) }
+    60%{ transform:translate(-1px,1px) rotate(-0.3deg) }
+    80%{ transform:translate(1px,-1px) rotate(0.3deg) }
+    100%{ transform:translate(0,0) rotate(0) }
+  }
+  /* عند الانكسار: الصورة تتلاشى/تتعتم قليلاً */
+  .image-section.broken img.main{
+    filter:grayscale(1) blur(1.5px) brightness(.7);
+    transform:scale(1.03) rotate(-1deg);
+    opacity:.45;
+  }
+  /* عند الانكسار: نشغّل الـ Overlay */
+  .image-section.broken .crack-overlay{
+    animation:crackFade 2s ease forwards;
+  }
+  /* عند الانكسار: هزة */
+  .image-section.broken{
+    animation:shock .45s ease;
+  }
+
+  .farewell{ font-size:1.5em; color:#ffdddd; margin:80px 0 50px }
+  audio{ display:none }
+
+  @media (max-width:600px){
+    h1{ font-size:2.2em; margin-top:90px }
+    .image-section img.main, .crack-overlay{ max-width:85vw }
+  }
+  
+    /* زر متوهّج (لو حبيت تستخدمه) */
+    .glow-btn{
+      background:rgba(255,255,255,.05); border:1px solid #ff4d6d; padding:12px 28px; border-radius:12px;
+      color:#fff; font-size:16px; margin:10px; text-decoration:none; transition:.4s; display:inline-block;
+      box-shadow:0 0 10px rgba(255,0,51,.3);
+    }
+    .glow-btn:hover{ background:rgba(255,0,51,.1); box-shadow:0 0 25px rgba(255,0,51,.6); transform:scale(1.05) }
+
+    /* موبايل */
+    @media (max-width:500px){
+      h1{ font-size:1.2em; margin-top:80px }
+      .image-section img{ max-width:75% }
+      .container{ padding:10px }
+    }
 
 
 <h1 id="mainTitle">ذكرى حبيبت قلبي  توأم روحي فرح💔 
@@ -145,6 +401,10 @@
        alt="تشقق">
 </div>
 
+  </style>
+</style>
+</head>
+<body>
 
 
 <h1 id="mainTitle">ذكرى حبيبت قلبي  توأم روحي فرح💔 
@@ -230,7 +490,6 @@
   }
 
   /* NAV */
-
   nav{
     position:fixed; top:0; right:0; left:0; z-index:8000;
     padding:12px 30px; background:rgba(0,0,0,.3); backdrop-filter:blur(100px);
@@ -292,8 +551,8 @@
   }
 
   /* موبايل */
-  @media (max-width:600px){
-    h1{ font-size:2em; margin-top:92px }
+  @media (max-width:500px){
+    h1{ font-size:1.5em; margin-top:80px }
   }
 </style>
 </head>
@@ -303,7 +562,7 @@
 <nav>
   <ul>
     <li><a class="btn" href="gallery.html">📸 معرض الصور</a></li>
-    <li><a class="btn" href="video/video.html">🎥 فيديوهات</a></li>
+    <li><a class="btn" href="video.html">🎥 فيديوهات</a></li>
     <li><a class="btn" href="message.html">💌 رسالة</a></li>
     <li><a class="btn" href="impossible.html">💔 المستحيل</a></li>
   </ul>
@@ -411,6 +670,8 @@
 </script>
 </body>
 </html>
+
+
 
 
 
