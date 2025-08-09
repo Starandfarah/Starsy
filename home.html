@@ -1,134 +1,138 @@
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>ذكرى فرح 💔</title>
-<link href="https://fonts.googleapis.com/css2?family=Amiri&display=swap" rel="stylesheet" />
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+
+<link href="https://fonts.googleapis.com/css2?family=Amiri&display=swap" rel="stylesheet"/>
 <style>
-  /* أساسيات + معالجة البياض على الجوانب (iOS) */
-  html, body { height: 100%; background:#000; }
-  :root { --pink:#ff4d6d; }
-  * { box-sizing: border-box; margin:0; padding:0; }
-  body{
-    font-family:'Amiri',serif; text-align:center; color:#fff; line-height:1.9;
-    background: linear-gradient(to bottom,#000,#1b0033,#000);
-    background-attachment: fixed;
-    overflow-x:hidden;
-    min-height: 100svh; /* يغطي شاشة الموبايل الفعلية */
-    overscroll-behavior-y: none;
+  body
+  { color:#ffccff; font-weight:bold;
+    margin:0; padding:0; font-family:'Amiri',serif;
+    background:linear-gradient(to bottom,#000,#1b0033,#000);
+    color:#fff; text-align:center;
   }
 
   /* مطر + ضوضاء */
   body::before{
     content:""; position:fixed; inset:0;
-    background:url("") repeat;
-    opacity:.07; animation:rain .5s linear infinite; pointer-events:none; z-index:-1;
+    background:url("https://pngimg.com/uploads/rain/rain_PNG12959.png") repeat;
+    opacity:.07; animation:rainAnim .5s linear infinite; pointer-events:none; z-index:-1;
   }
-  @keyframes rain{0%{background-position:0 0}100%{background-position:8% 80%}}
+  @keyframes rainAnim{0%{background-position:0 0}100%{background-position:8% 80%}}
   body::after{
     content:""; position:fixed; inset:0;
-    background:url("");
+    background:url("https://raw.githubusercontent.com/creotiv/animated-noise-bg/main/noise.png");
     opacity:.03; pointer-events:none; z-index:-1;
   }
 
-  /* شريط علوي بسيط (اختياري) */
-  nav{
-    position:sticky; top:0; z-index:1000;
-    padding:12px 20px; background:rgba(0,0,0,.35); backdrop-filter:blur(8px);
-    border-bottom:1px solid rgba(255,255,255,.1); text-align:right;
-  }
-  nav ul{ list-style:none }
-  nav li{ display:inline-block; margin-inline-start:10px }
-  .btn{
-    background:rgba(255,255,255,.05); border:1px solid var(--pink);
-    color:#fff; text-decoration:none; padding:8px 14px; border-radius:10px;
-    transition:.25s; box-shadow:0 0 10px rgba(255,0,51,.25);
-    font-size:1rem;
-  }
-  .btn:hover{ background:rgba(255,0,51,.1); box-shadow:0 0 20px rgba(255,0,51,.6) }
-
-  /* العنوان */
+  /* عنوان بنبض + سيحترق لاحقًا */
   h1{
-    margin-top:24px; font-size:2.6em; color:var(--pink);
-    text-shadow:0 0 22px rgba(255,0,51,.6); animation:pulse 3s infinite;
+    font-size:3em; color:#ff4d6d; margin-top:110px;
+    text-shadow:0 0 25px rgba(255,0,51,.6); animation:pulse 3s infinite;
   }
-  @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+  @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.1)}}
+   /* NAV متوهّج */
+    nav{
+      width:100%; padding:12px 30px; position:fixed; top:0; right:0; z-index:1000;
+      background:rgba(0,0,0,.3); backdrop-filter:blur(10px);
+      border-bottom:1px solid rgba(255,255,255,.1);
+      box-shadow:0 0 12px rgba(255,100,255,.2); transition:background .5s ease;
+      text-align:right;
+    }
+    nav:hover{ background:rgba(0,0,0,.6) }
+    nav ul{ list-style:none; margin:0; padding:0 }
+    nav ul li{ display:inline-block; margin-left:20px }
+    nav ul li a{
+      color:#ffccff; text-decoration:none; font-size:1.2em; font-weight:bold; position:relative;
+      transition:color .3s ease;
+    }
+    nav ul li a::after{
+      content:""; position:absolute; bottom:-3px; right:0; width:0; height:2px; background:#fff;
+      transition:width .3s ease;
+    }
+    nav ul li a:hover{ color:#fff }
+    nav ul li a:hover::after{ width:100% }
 
-  /* نص افتتاحي */
-  .lead{ font-size:1.15em; color:#ccc; margin:18px 0 }
 
-  /* المعرض: صفّين (4 ثم 3) */
-  .gallery{ max-width:1050px; margin:26px auto 10px; padding:0 14px; }
-  .row{ display:grid; gap:22px; margin-bottom:22px; }
-  .row4{ grid-template-columns:repeat(4,1fr); }
-  .row3{ grid-template-columns:repeat(3,1fr); }
+  /* احتراق عام للنصوص */
+  @keyframes burn{
+    0%{ filter:brightness(1) drop-shadow(0 0 5px orange); opacity:1 }
+    50%{ filter:brightness(1.5) drop-shadow(0 0 15px red); opacity:.75 }
+    100%{ filter:blur(5px); opacity:0 }
+  }
+  .burning{ animation:burn 4s forwards }
 
-  .image-section{ position:relative; overflow:hidden; border-radius:12px }
+  p{ font-size:1.2em; color:#ccc; margin:30px 0 40px }
+
+  /* الصورة + التشقق */
+  .image-section{ position:relative; margin:40px 0; text-align:center; display:inline-block }
   .image-section img.main{
-    width:100%; height:260px; object-fit:cover;
-    transition:filter .6s ease, transform .6s ease, opacity .6s ease;
-    display:block;
+    max-width:60vw; height:auto; border-radius:12px; transition:filter .6s ease, transform .6s ease, opacity .6s ease;
   }
-  .image-section img.crack{
-    position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
-    opacity:0; pointer-events:none; transform:scale(1.02);
+  /* طبقة الزجاج المكسور (Overlay) */
+  .crack-overlay{
+    position:absolute; inset:0; margin:auto; max-width:60vw; height:auto; pointer-events:none;
+    opacity:0; transform:scale(1.02);
     filter:drop-shadow(0 0 12px rgba(0,0,0,.45));
   }
-  /* انكسار متسلسل */
+  /* إظهار التشقق ثم تلاشيه */
+  @keyframes crackFade {
+    0% { opacity:0; transform:scale(1.02) }
+    20%{ opacity:1; transform:scale(1.0) }
+    100%{ opacity:0; transform:scale(1.0) }
+  }
+  /* هزة خفيفة لحظة الصدمة */
+  @keyframes shock {
+    0%{ transform:translate(0,0) rotate(0) }
+    20%{ transform:translate(-2px,1px) rotate(-0.4deg) }
+    40%{ transform:translate(2px,-1px) rotate(0.4deg) }
+    60%{ transform:translate(-1px,1px) rotate(-0.3deg) }
+    80%{ transform:translate(1px,-1px) rotate(0.3deg) }
+    100%{ transform:translate(0,0) rotate(0) }
+  }
+  /* عند الانكسار: الصورة تتلاشى/تتعتم قليلاً */
   .image-section.broken img.main{
-    filter:grayscale(1) blur(1.2px) brightness(.75);
-    transform:scale(1.03) rotate(-.8deg); opacity:.5;
+    filter:grayscale(1) blur(1.5px) brightness(.7);
+    transform:scale(1.03) rotate(-1deg);
+    opacity:.45;
   }
-  .image-section.broken img.crack{ animation:crackFade 1.8s ease forwards }
-  .image-section.broken{ animation:shock .45s ease }
-  @keyframes crackFade{0%{opacity:0;transform:scale(1.02)}25%{opacity:1;transform:scale(1)}100%{opacity:0}}
-  @keyframes shock{0%{transform:translate(0,0)}25%{transform:translate(-2px,1px)}50%{transform:translate(2px,-1px)}100%{transform:translate(0,0)}}
+  /* عند الانكسار: نشغّل الـ Overlay */
+  .image-section.broken .crack-overlay{
+    animation:crackFade 2s ease forwards;
+  }
+  /* عند الانكسار: هزة */
+  .image-section.broken{
+    animation:shock .45s ease;
+  }
 
-  /* نص الوداع – سطر سطر */
-  .wrap{ max-width: 900px; margin: 36px auto 80px; padding: 0 16px; }
-  #farewellText{ text-align:center }
-  .line{
-    position:relative; display:block; margin:6px 0; color:#ddd; font-size:1.22em;
-  }
-  /* احتراق السطر */
-  @keyframes burnOut {
-    0%   { color:#fff; text-shadow:0 0 8px rgba(255,160,0,.6) }
-    35%  { color:#ffb15a; text-shadow:0 0 18px rgba(255,60,0,.75) }
-    70%  { color:#ff6a2a; text-shadow:0 0 28px rgba(255,20,0,.85) }
-    100% { color:#000; opacity:0; filter:blur(1px); transform:translateY(-2px) }
-  }
-  .ignite{ animation:burnOut 2600ms ease-in forwards; will-change:transform,opacity,filter; }
-  .ignite::before{
-    content:""; position:absolute; left:50%; top:50%; width:100%; height:100%;
-    transform:translate(-50%,-50%); pointer-events:none;
-    background:
-      radial-gradient(120% 60% at 50% 100%, rgba(255,120,0,.85), rgba(255,70,0,.5) 40%, transparent 60%),
-      radial-gradient(120% 60% at 60% 100%, rgba(255,0,120,.45), transparent 60%),
-      radial-gradient(120% 60% at 40% 100%, rgba(180,0,255,.35), transparent 60%);
-    mix-blend-mode:screen; filter:blur(8px) saturate(1.2);
-    animation:flicker 1800ms ease-in-out infinite, rise 2600ms ease-out forwards;
-  }
-  .ignite::after{
-    content:""; position:absolute; left:50%; top:0; width:160%; height:120%;
-    transform:translateX(-50%); pointer-events:none;
-    background: radial-gradient(60% 40% at 50% 0%, rgba(220,220,220,.22), transparent 70%);
-    filter:blur(100px); opacity:0; animation:smoke 2600ms ease-out forwards;
-  }
-  @keyframes flicker{0%,100%{opacity:.45;filter:blur(8px) brightness(1)}40%{opacity:.9;filter:blur(7px) brightness(1.25)}70%{opacity:.6;filter:blur(9px) brightness(1.1)}}
-  @keyframes rise{0%{transform:translate(-50%,-40%) scale(1)}100%{transform:translate(-50%,-90%) scale(1.15);opacity:0}}
-  @keyframes smoke{0%{opacity:.15;transform:translate(-50%,-6px) scale(1)}100%{opacity:0;transform:translate(-50%,-46px) scale(1.35)}}
+  .farewell{ font-size:1.5em; color:#ffdddd; margin:80px 0 50px }
+  audio{ display:none }
 
-  /* استجابة */
-  @media (max-width:900px){ .row4{grid-template-columns:repeat(2,1fr)} .row3{grid-template-columns:repeat(2,1fr)} }
   @media (max-width:600px){
-    h1{ font-size:2em; margin-top:16px }
-    .image-section img.main{ height:210px }
-    .line{ font-size:1.08em }
+    h1{ font-size:2.2em; margin-top:90px }
+    .image-section img.main, .crack-overlay{ max-width:85vw }
   }
+  
+    /* زر متوهّج (لو حبيت تستخدمه) */
+    .glow-btn{
+      background:rgba(255,255,255,.05); border:1px solid #ff4d6d; padding:12px 28px; border-radius:12px;
+      color:#fff; font-size:16px; margin:10px; text-decoration:none; transition:.4s; display:inline-block;
+      box-shadow:0 0 10px rgba(255,0,51,.3);
+    }
+    .glow-btn:hover{ background:rgba(255,0,51,.1); box-shadow:0 0 25px rgba(255,0,51,.6); transform:scale(1.05) }
 
+    /* موبايل */
+    @media (max-width:600px){
+      h1{ font-size:2.2em; margin-top:90px }
+      .image-section img{ max-width:85% }
+      .container{ padding:16px }
+    }
+  </style>
 </style>
-
+</head>
+<body>
 
 
 <h1 id="mainTitle">ذكرى حبيبت قلبي  توأم روحي فرح💔 
@@ -153,7 +157,9 @@
   </div>
 
 
-<p id="farewellText">💔 في نهاية الذاكرة… كنتِ الوطن، وأنا أصبحت لاجئًا بعدك</p>
+<audio autoplay loop>
+  <source src="https://files.catbox.moe/h8tdkz.mp3" type="audio/mpeg">
+</audio>
 
 <script>
   
@@ -180,25 +186,22 @@
   // بعد 9 ثوانٍ: احتراق نص الوداع
   setTimeout(() => {
     document.getElementById('farewellText').classList.add('burning');
-  }, 2000);
+  }, 9000);
 
   // بعد 11 ثانية: احتراق العنوان
   setTimeout(() => {
     document.getElementById('mainTitle').classList.add('burning');
-  }, 30000);
+  }, 11000);
 </script>
 </style>
 </body>
 
-
 <style>
   :root { --pink:#ff4d6d; }
-  *{ box-sizing:border-box; margin:8; padding:2; }
-  body
-  { color:#ffccff; font-weight:bold;
-    margin:0; padding:0; font-family:'Amiri',serif;
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  body{
+    font-family:'Amiri',serif; text-align:center; color:#fff; overflow-x:hidden;
     background:linear-gradient(to bottom,#000,#1b0033,#000);
-    color:#1b0033; text-align:center;
   }
 
   /* مطر + ضوضاء */
@@ -217,8 +220,8 @@
   /* NAV */
   nav{
     position:fixed; top:0; right:0; left:0; z-index:1000;
-    padding:12px 30px; background:rgba(0,0,0,.3); backdrop-filter:blur(10px);
-    border-bottom:1px solid rgba(255,255,255,.1); text-align:right;
+    padding:12px 30px; background:rgba(0,0,0,.3); backdrop-filter:blur(100px);
+    border-bottom:1px solid rgba(255,255,255,.1); text-align:center;
   }
   nav ul{ list-style:none }
   nav li{ display:inline-block; margin-left:12px }
@@ -236,20 +239,16 @@
   }
   @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
 
-  /* نصوص */
-  p{ font-size:1.15em; color:#ccc; margin:28px 0 }
 
-  /* معرض الصور (صفّين: 4 ثم 3) */
-  /* معرض الصور (صفّين: 4 ثم 3) */
-.gallery{ max-width:1050px; margin:30px auto 10px; padding:0 14px; }
-.row{ display:grid; gap:26px; margin-bottom:26px; }
-.row.row4{ grid-template-columns:repeat(4, 1fr); }
-.row.row3{ grid-template-columns:repeat(3, 1fr); }
-@media (max-width:900px){
-
-
-}
-  .image-section{ position:center; }
+  /* معرض الصور */
+  .gallery{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(200px, 2fr));
+    gap:26px;
+    max-width:100%;
+    margin:30px auto;
+  }
+  .image-section{ position:relative; }
   .image-section img.main{
     width:100%; height:auto; border-radius:12px;
     transition:filter .6s ease, transform .6s ease, opacity .6s ease;
@@ -268,21 +267,7 @@
   .image-section.broken{ animation:shock .45s ease }
   @keyframes crackFade{0%{opacity:0;transform:scale(1.02)}20%{opacity:1;transform:scale(1)}100%{opacity:0}}
   @keyframes shock{
-    0%{transform:translate(0,0)}25%{transform:translate(px,px)}50%{transform:translate(px,px)}100%{transform:translate(0,0)}
-  }
-
-  /* صندوق نص الوداع – تنسيق سينمائي متناغم */
-  
-  /* السطور تطلع وحدة وحدة */
-  .farewell p{
-    opacity: 0;
-    transform: translateY(px);
-    transition: opacity .1s ease, transform .5s ease;
-  }
-  .farewell p.show{
-    opacity: ;
-    transform: translateY(0);
-    text-shadow: 0 0 1px rgba(255,0,51,.12);
+    0%{transform:translate(0,0)}25%{transform:translate(-2px,1px)}50%{transform:translate(2px,-1px)}100%{transform:translate(0,0)}
   }
 
   /* احتراق */
@@ -307,101 +292,112 @@
     <li><a class="btn" href="gallery.html">📸 معرض الصور</a></li>
     <li><a class="btn" href="video.html">🎥 فيديوهات</a></li>
     <li><a class="btn" href="message.html">💌 رسالة</a></li>
-    <li><a class="btn" href="impossible.html">💔 الوداع مؤلم</a></li>
+    <li><a class="btn" href="impossible.html">💔 المستحيل</a></li>
   </ul>
 </nav>
 
 <!-- العنوان -->
 <h1 id="title">ذكرى حبيبت قلبي وتوأم روحي فرح 💔</h1>
 
-<!-- نصوص افتتاحية -->
+<!-- نصوص -->
 <p>يؤلمني الحنين كل ليلة، يذكرني بما فقدت وبحبٍ أصبح من المستحيل.</p>
 <p>في عينيَّ ذكرى لا تموت، وفي قلبي شوق يأبى أن ينطفئ.</p>
 
 <!-- الصور -->
 <div class="gallery">
   <!-- الصف الأول (4 صور) -->
-  <div class="row row4">
-    <div class="image-section">
-      <img class="main" src="IMG_6446_Original.jpeg" alt="صورة حزينة 1">
-      <img class="crack" src="https://pngimg.com/uploads/broken_glass/broken_glass_PNG1.png" alt="">
-    </div>
-    <div class="image-section">
-      <img class="main" src="IMG_5040_Original.jpeg" alt="صورة حزينة 2">
-      <img class="crack" src="https://pngimg.com/uploads/broken_glass/broken_glass_PNG1.png" alt="">
-    </div>
-    <div class="image-section">
-      <img class="main" src="IMG_5015_Original.jpeg" alt="صورة حزينة 3">
-      <img class="crack" src="https://pngimg.com/uploads/broken_glass/broken_glass_PNG1.png" alt="">
-    </div>
-    <div class="image-section">
-      <img class="main" src="IMG_0224.jpeg" alt="صورة حزينة 4">
-      <img class="crack" src="https://pngimg.com/uploads/broken_glass/broken_glass_PNG1.png" alt="">
-    </div>
+  <div class="image-section">
+    <img class="main" src="IMG_6446_Original.jpeg" alt="صورة حزينة 1">
+    <img class="crack" src="https://pngimg.com/uploads/broken_glass/broken_glass_PNG1.png">
+  </div>
+  <div class="image-section">
+    <img class="main" src="IMG_5040_Original.jpeg" alt="صورة حزينة 2">
+    <img class="crack" src="https://pngimg.com/uploads/broken_glass/broken_glass_PNG1.png">
+  </div>
+  <div class="image-section">
+    <img class="main" src="IMG_5015_Original.jpeg" alt="صورة حزينة 3">
+    <img class="crack" src="https://pngimg.com/uploads/broken_glass/broken_glass_PNG1.png">
+  </div>
+  <div class="image-section">
+    <img class="main" src="IMG_3600.jpeg" alt="صورة حزينة 4">
+    <img class="crack" src="https://pngimg.com/uploads/broken_glass/broken_glass_PNG1.png">
   </div>
 
   <!-- الصف الثاني (3 صور) -->
-  <div class="row row3">
-    <div class="image-section">
-      <img class="main" src="IMG_0223.jpeg" alt="صورة حزينة 5">
-      <img class="crack" src="https://pngimg.com/uploads/broken_glass/broken_glass_PNG1.png" alt="">
-    </div>
-    <div class="image-section">
-      <img class="main" src="IMG_3600.jpeg" alt="صورة حزينة 6">
-      <img class="crack" src="https://pngimg.com/uploads/broken_glass/broken_glass_PNG1.png" alt="">
-    </div>
-    <div class="image-section">
-      <img class="main" src="IMG_0225.jpeg" alt="صورة حزينة 7">
-      <img class="crack" src="https://pngimg.com/uploads/broken_glass/broken_glass_PNG1.png" alt="">
-    </div>
+  <div class="image-section">
+    <img class="main" src="IMG_0225.jpeg" alt="صورة حزينة 5">
+    <img class="crack" src="https://pngimg.com/uploads/broken_glass/broken_glass_PNG1.png">
+  </div>
+  <div class="image-section">
+    <img class="main" src="IMG_0222.jpeg" alt="صورة حزينة 6">
+    <img class="crack" src="https://pngimg.com/uploads/broken_glass/broken_glass_PNG1.png">
+
+
+</p>
+
+    <audio autoplay="" loop="">
+      <source src="https://files.catbox.moe/h8tdkz.mp3" type="audio/mpeg" />
+    </audio>
+    
+
+  
   </div>
 </div>
 
-<div class="wrap">
-  <div id="farewellText">
-    <span class="line">كنا نتمشّى... ويدك بإيدي.</span>
-    <span class="line">تمشّينا بخوف، كأنّنا نحس إنّها آخر مرة.</span>
-    <span class="line">ما قلنا وداع، بس كل خطوة كانت تبعدنا.</span>
-    <span class="line">وكل نفس كنت آخذه، كان يوجّع أكثر من اللي قبله.</span>
-    <span class="line">قالوا الزمن ينسّي... بس أنا نسيت كلشي إلا أنت.</span>
-    <span class="line">نسيت أضحك، نسيت أنام، نسيت أعيش، بس ما نسيتك ومارح أنساك.</span>
-    <span class="line">أنا كنت أمشي وإنت بحضني... وهسّه أمشي وأنا أشيل طيفك على ظهري.</span>
-    <span class="line">تقيل، يذبح، يخنق، بس ما أقدر أتركه.</span>
-    <span class="line">كنت أفكر نبتعد شوي... بس نرجع.</span>
-    <span class="line">بس الحقيقة؟ انتي ما كنتِ تنتظرين الرجوع... كنتِ تجهزين لغيري.</span>
-    <span class="line">أنا مشيت وأنا حافظ كل تفاصيلك، وانتي مشيتي وانتي ناسية حتى اسمي.</span>
-    <span class="line">إيدي اللي كانت تتمسّك بيك، صارت تتمسّك بالهوا.</span>
-    <span class="line">وقلبي اللي عاشك... صرت أخاف أسمع نبضه، لأنه ما نساك.</span>
-    <span class="line">ما عاد الوداع وجع، الوجع إنك اخترتي تكملي العمر بايد مو إيدي.</span>
-    <span class="line">اخترتي طريق ما كنت بيه... ورحتِ هناك، بخطوة ما رجعتي منها.</span>
-    <span class="line">وداعًا يا أعز العابرين في قلبي...</span>
-    <span class="line">رغم إنك ما عبرت، انت سكنت ومشيت، وخليتني بيت فاضي ما يسكنه غير الحنين.</span>
-  </div>
+<!-- وداع -->
+
+<p id="farewellText"><div class="farewell" id="farewellText">
+  <p>كنا نتمشّى... ويدك بإيدي تمشّينا بخوف، كأنّنا نحس إنّها آخر مرة
+  ما قلنا وداع، بس كل خطوة كانت تبعدنا.
+  <p>وكل نفس كنت آخذه، كان يوجّع أكثر من اللي قبله نسيت أضحك
+ ، نسيت أنام، نسيت أعيش، بس ما نسيتك ومارح أنساك.
+  <p>أنا كنت أمشي وإنت بحضني... وهسّه أمشي وأنا أشيل طيفك على ظهري.</p>
+  <p>تقيل، يذبح، يخنق، بس ما أقدر أتركه كنت أفكر نبتعد شوي... بس نرجع.</p>
+  <p>بس الحقيقة؟ انتي ما كنتِ تنتظرين الرجوع... كنتِ تجهزين لغيري.</p>
+  <p>أنا مشيت وأنا حافظ كل تفاصيلك، وانتي مشيتي وانتي ناسية حتى اسمي.</p>
+  <p>إيدي اللي كانت تتمسّك بيك، صارت تتمسّك بالهوا.</p>
+  <p>وقلبي اللي عاشك... صرت أخاف أسمع نبضه، لأنه ما نساك.</p>
+  <p>ما عاد الوداع وجع، الوجع إنك اخترتي تكملي العمر بايد مو إيدي.</p>
+  <p>اخترتي طريق ما كنت بيه... ورحتِ هناك، بخطوة ما رجعتي منها.</p>
+  <p>وداعًا يا أعز العابرين في قلبي...</p>
+  <p>رغم إنك ما عبرت، انت سكنت ومشيت، وخليتني بيت فاضي ما يسكنه غير الحنين.</p>
+</div></p>
+
+
+
+
+    <p class="fade-text signature"> </p>
+    
+  
+<p id="farewell">💔 في نهاية الذاكرة… كنتِ الوطن، وأنا أصبحت لاجئًا بعدك وداعًا يا حلمًا لم يكتمل
+
+… 💔
+
+</p>
 </div>
+<!-- موسيقى -->
+<audio autoplay loop hidden>
+  <source src="https://files.catbox.moe/h8tdkz.mp3" type="audio/mpeg">
+</audio>
 
 <script>
-  /* انكسار الصور متسلسل */
-  (function(){
-    const sections = document.querySelectorAll('.image-section');
-    const base = 7000;       // يبدأ بعد 7 ثواني
-    const step = 2500;       // فرق بين كل صورة
-    sections.forEach((sec, i)=>{
-      setTimeout(()=> sec.classList.add('broken'), base + i*step);
-    });
-  })();
+  // انكسار متسلسل لكل الصور
+  const sections = document.querySelectorAll('.image-section');
+  const baseDelay = 7000;
+  const step = 3000;
 
-  /* احتراق النص: يبدأ بعد 10 ثواني – سطر بسطر */
-  (function(){
-    const START_AFTER_MS   = 10000;
-    const STEP_BETWEEN_MS  = 1200;
-    const lines = Array.from(document.querySelectorAll('#farewellText .line'));
-    setTimeout(()=>{
-      lines.forEach((ln, idx)=>{
-        setTimeout(()=> ln.classList.add('ignite'), idx * STEP_BETWEEN_MS);
-      });
-    }, START_AFTER_MS);
-  })();
+  sections.forEach((sec, i) => {
+    setTimeout(() => { sec.classList.add('broken'); }, baseDelay + i * step);
+  });
+
+  // احتراق نص الوداع والعنوان
+  const afterAll = baseDelay + sections.length * step;
+  setTimeout(() => { document.getElementById('farewell').classList.add('burning'); }, afterAll + 2000);
+  setTimeout(() => { document.getElementById('title').classList.add('burning'); }, afterAll + 4000);
+
 </script>
-
 </body>
 </html>
+
+
+
