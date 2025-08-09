@@ -129,10 +129,102 @@
       .image-section img{ max-width:75% }
       .container{ padding:10px }
     }
+
+  
+  /* احتراق عام للنصوص */
+  @keyframes burn{
+    0%{ filter:brightness(1) drop-shadow(0 0 5px orange); opacity:1 }
+    50%{ filter:brightness(1.5) drop-shadow(0 0 15px red); opacity:.75 }
+    100%{ filter:blur(5px); opacity:0 }
+  }
+  .burning{ animation:burn 4s forwards }
+
+  p{ font-size:1.2em; color:#ccc; margin:30px 0 40px }
+
+  /* الصورة + التشقق */
+  .image-section{ position:relative; margin:40px 0; text-align:center; display:inline-block }
+  .image-section img.main{
+    max-width:60vw; height:auto; border-radius:12px; transition:filter .6s ease, transform .6s ease, opacity .6s ease;
+  }
+  /* طبقة الزجاج المكسور (Overlay) */
+  .crack-overlay{
+    position:absolute; inset:0; margin:auto; max-width:60vw; height:auto; pointer-events:none;
+    opacity:0; transform:scale(1.02);
+    filter:drop-shadow(0 0 12px rgba(0,0,0,.45));
+  }
+  /* إظهار التشقق ثم تلاشيه */
+  @keyframes crackFade {
+    0% { opacity:0; transform:scale(1.02) }
+    20%{ opacity:1; transform:scale(1.0) }
+    100%{ opacity:0; transform:scale(1.0) }
+  }
+  /* هزة خفيفة لحظة الصدمة */
+  @keyframes shock {
+    0%{ transform:translate(0,0) rotate(0) }
+    20%{ transform:translate(-2px,1px) rotate(-0.4deg) }
+    40%{ transform:translate(2px,-1px) rotate(0.4deg) }
+    60%{ transform:translate(-1px,1px) rotate(-0.3deg) }
+    80%{ transform:translate(1px,-1px) rotate(0.3deg) }
+    100%{ transform:translate(0,0) rotate(0) }
+  }
+  /* عند الانكسار: الصورة تتلاشى/تتعتم قليلاً */
+  .image-section.broken img.main{
+    filter:grayscale(1) blur(1.5px) brightness(.7);
+    transform:scale(1.03) rotate(-1deg);
+    opacity:.45;
+  }
+  /* عند الانكسار: نشغّل الـ Overlay */
+  .image-section.broken .crack-overlay{
+    animation:crackFade 2s ease forwards;
+  }
+  /* عند الانكسار: هزة */
+  .image-section.broken{
+    animation:shock .45s ease;
+  }
+
+  .farewell{ font-size:1.5em; color:#ffdddd; margin:80px 0 50px }
+  audio{ display:none }
+
+  @media (max-width:600px){
+    h1{ font-size:2.2em; margin-top:90px }
+    .image-section img.main, .crack-overlay{ max-width:85vw }
+  }
+  
+    /* زر متوهّج (لو حبيت تستخدمه) */
+    .glow-btn{
+      background:rgba(255,255,255,.05); border:1px solid #ff4d6d; padding:12px 28px; border-radius:12px;
+      color:#fff; font-size:16px; margin:10px; text-decoration:none; transition:.4s; display:inline-block;
+      box-shadow:0 0 10px rgba(255,0,51,.3);
+    }
+    .glow-btn:hover{ background:rgba(255,0,51,.1); box-shadow:0 0 25px rgba(255,0,51,.6); transform:scale(1.05) }
+
+    /* موبايل */
+    @media (max-width:500px){
+      h1{ font-size:1.2em; margin-top:80px }
+      .image-section img{ max-width:75% }
+      .container{ padding:10px }
+    }
   </style>
 </style>
 </head>
 <body>
+
+
+<h1 id="mainTitle">ذكرى حبيبت قلبي  توأم روحي فرح💔 
+</h1>
+
+    <p class="fadein">يؤلمني الحنين كل ليلة، يذكرني بما فقدت وبحبٍ أصبح من المستحيل.</p>
+    <p class="fadein">في عينيَّ ذكرى لا تموت، وفي قلبي شوق يأبى أن ينطفئ.</p>
+
+<div class="image-section" id="imageSection">
+  <!-- الصورة الرئيسية -->
+  <img class="main" id="brokenImage" src="IMG_1714.jpeg" alt="صورة حزينة">
+  <!-- طبقة التشقق (PNG بخلفية شفافة) -->
+  <img class="crack-overlay" id="crackOverlay"
+       src="https://pngimg.com/uploads/broken_glass/broken_glass_PNG1.png"
+       alt="تشقق">
+</div>
+
 
 
 <h1 id="mainTitle">ذكرى حبيبت قلبي  توأم روحي فرح💔 
